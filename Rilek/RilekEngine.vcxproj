@@ -154,7 +154,6 @@
     <ClInclude Include="Source\Core\CoreEngine.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\Tools\Delegate.h" />
-    <ClInclude Include="Resource.h" />
     <ClInclude Include="Source\Tools\Logger.h" />
   </ItemGroup>
   <ItemGroup>
