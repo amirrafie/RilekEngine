@@ -1,0 +1,2 @@
+C:\Users\Amir\Desktop\Projects\Rilek\RilekEngine\Debug\RilekEngine.exe
+C:\Users\Amir\Desktop\Projects\Rilek\RilekEngine\Debug\RilekEngine.pdb
