@@ -1,3 +1,0 @@
-[submodule "RilekEngine/Rilek/Deps/spdlog"]
-	path = RilekEngine/Rilek/Deps/spdlog
-	url = https://github.com/gabime/spdlog
