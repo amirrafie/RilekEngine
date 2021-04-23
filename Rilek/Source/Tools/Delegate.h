@@ -1,7 +1,8 @@
 #pragma once
 #include <functional>
 #include <cassert>
-namespace Tools
+
+namespace Rilek
 {
 	template<typename... >
 	class Delegate;

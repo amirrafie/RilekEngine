@@ -46,9 +46,6 @@ namespace Core
 		template<typename System>
 		void CreateSystem(const char* systemName)
 		{
-			DEBUG_LOG("Creating System:");
-			DEBUG_LOG(systemName);
-
 			// get the system id, and check if the id corresponds to the latest index that will be assigned
 			SystemID id = GetSystemID<System>();
 			assert((id == m_systemContainer.size()) && "Error creating system");
@@ -106,10 +103,10 @@ namespace Core
 		std::vector<SystemType> m_systemContainer;
 		std::vector<SystemData> m_systemDataContainer;
 
-		std::vector<Tools::Delegate<void()>> m_initDelegates;
-		std::vector<Tools::Delegate<void(float)>> m_updateDelegates;
-		std::vector<Tools::Delegate<void(float)>> m_fixedUpdateDelegates;
-		std::vector<Tools::Delegate<void()>> m_endDelegates;
+		std::vector<Rilek::Delegate<void()>> m_initDelegates;
+		std::vector<Rilek::Delegate<void(float)>> m_updateDelegates;
+		std::vector<Rilek::Delegate<void(float)>> m_fixedUpdateDelegates;
+		std::vector<Rilek::Delegate<void()>> m_endDelegates;
 
 	};
 }

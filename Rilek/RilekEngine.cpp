@@ -44,8 +44,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     /////////////////////////////////////////////////////////////////
+    Rilek::Logger::Init();
+
+    RLK_TRACE("Trace");
+    RLK_INFO("Info");
+    RLK_WARN("Warn");
+    RLK_ERROR("Error");
+
     std::cout << "hi";
-    Tools::Delegate<void(int)> d;
+
+    Rilek::Delegate<void(int)> d;
     test t;
     d.Attach<&test::hoi>(&t);
     
