@@ -1,8 +1,3 @@
 #pragma once
-#include <iostream>
+#include "spdlog/logger.h"
 
-#ifdef _DEBUG
-#define DEBUG_LOG(...) std::cout << __VA_ARGS__ << std::endl;
-#else
-#define DEBUG_LOG(...)
-#endif
