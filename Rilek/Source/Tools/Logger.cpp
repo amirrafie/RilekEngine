@@ -1,4 +1,11 @@
 #include "stdafx.h"
+
+#include <chrono>
+#include <ctime>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
+
 #include "Logger.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
@@ -15,7 +22,15 @@ namespace Rilek
 		m_consoleLogger = spdlog::stdout_color_mt("console");
 		m_consoleLogger->set_level(spdlog::level::trace);
 
-		m_fileLogger = spdlog::basic_logger_mt("basic_logger", "logs/" __DATE__ ".txt");
+		// getting current date
+		std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+		std::basic_stringstream<char> date;
+		date << std::put_time(std::localtime(&now), "%F");
+		std::string dateString(date.str());
+
+		std::string filepath = std::string("logs/") + dateString + std::string(".txt");
+
+		m_fileLogger = spdlog::basic_logger_mt("file logger", filepath);
 		m_fileLogger->set_level(spdlog::level::trace);
 	}
 

@@ -2,9 +2,6 @@
 //
 
 #include "stdafx.h"
-#include <iostream>
-
-#include <windows.h>
 
 
 #include "Tools/Delegate.h"
@@ -17,7 +14,7 @@ class test
 public:
     void hoi(int a)
     {
-        std::cout << a;
+        RLK_TRACE("{0}", a);
     }
 };
 
@@ -51,7 +48,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     RLK_WARN("Warn");
     RLK_ERROR("Error");
 
-    std::cout << "hi";
 
     Rilek::Delegate<void(int)> d;
     test t;

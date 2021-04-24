@@ -2,7 +2,7 @@
 .vs/
 bin/
 bin-int/
-Rilek/x64/
+Rilek/logs/
 #Files
 *.user
 Rilek/RilekEngine.vcxproj*

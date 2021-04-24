@@ -98,6 +98,8 @@ namespace Core
 			CREATE_SYSTEM(a);
 		}
 
+		void Init();
+
 	private:
 
 		std::vector<SystemType> m_systemContainer;
