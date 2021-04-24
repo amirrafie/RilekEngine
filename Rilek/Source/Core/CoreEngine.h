@@ -3,19 +3,12 @@
 #include <vector>
 
 #include "Tools/Delegate.h"
-#include "Tools/Logger.h"
+#include "WindowSystem/WindowSystem.h"
 
 #define CREATE_SYSTEM(s) CreateSystem<s>(#s)
 
-namespace Core
+namespace Rilek::Core
 {
-	struct a
-	{
-		void Init() {}
-
-		void End() {}
-	};
-
 	struct SystemData
 	{
 		const char* m_name;
@@ -75,7 +68,7 @@ namespace Core
 		{
 			(RegisterUpdateSystem<Systems>(), ...);
 		}
-		
+
 		// Register a system to run once per engine loop
 		template<typename System>
 		void RegisterUpdateSystem()
@@ -93,14 +86,27 @@ namespace Core
 
 
 	public:
-		void Test()
-		{
-			CREATE_SYSTEM(a);
-		}
+		inline static Engine* GetEngine() { return mInstance; }
+		inline bool EngineIsRunning() { return isRunning; };
 
-		void Init();
+		void Init(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow);
+		void Update();
+		void End();
+
+		// Stop the engine
+		void Stop();
+
+		// Show console terminal
+		void ShowConsole();
 
 	private:
+		static Engine* mInstance;
+
+
+		bool isRunning = true;
+
+
+		Window::WindowSystem m_windowsSystem;
 
 		std::vector<SystemType> m_systemContainer;
 		std::vector<SystemData> m_systemDataContainer;

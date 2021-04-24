@@ -11,12 +11,12 @@
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
-namespace Rilek
+namespace Rilek::Tools
 {
-	std::shared_ptr<spdlog::logger> Rilek::Logger::m_consoleLogger;
-	std::shared_ptr<spdlog::logger> Rilek::Logger::m_fileLogger;
+	std::shared_ptr<spdlog::logger> Logger::m_consoleLogger;
+	std::shared_ptr<spdlog::logger> Logger::m_fileLogger;
 
-	void Rilek::Logger::Init()
+	void Logger::Init()
 	{
 		spdlog::set_pattern("%^%D:[%T]: %v%$");
 		m_consoleLogger = spdlog::stdout_color_mt("console");
