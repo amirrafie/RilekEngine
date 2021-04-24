@@ -5,9 +5,23 @@
 #include "Tools/Delegate.h"
 #include "Tools/Logger.h"
 
+#include "Windows/WindowSystem.h"
+
 namespace Rilek::Core
 {
 	Engine* Engine::mInstance = nullptr;
+
+	void Engine::CreateSystems()
+	{
+		m_windowsSystem = CREATE_SYSTEM(Rilek::Window::WindowSystem);
+	}
+
+	void Engine::RegisterSystems()
+	{
+		RegisterUpdateSystems<
+			Rilek::Window::WindowSystem
+		>();
+	}
 
 	void Engine::Init(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 	{
@@ -21,23 +35,40 @@ namespace Rilek::Core
 
 		RLK_INFO("Initialising Rilek Engine");
 
-		//start window
-		m_windowsSystem.Init(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+		// Create and register systems
+		CreateSystems();
+		RegisterSystems();
 
+		//start window
+		if (!m_windowsSystem)
+		{
+			RLK_ERROR("Window system not created!");
+		}
+		else
+			m_windowsSystem->InitWindows(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+
+
+
+
+		for (auto& delegate : m_initDelegates)
+			delegate();
 	}
 
 	void Engine::Update()
 	{
 		while (isRunning)
 		{
-			m_windowsSystem.Update();
+			for (auto& delegate : m_updateDelegates)
+				delegate(0.f);
 		}
 	}
 
 	void Engine::End()
 	{
 		RLK_INFO("Shutting down Rilek Engine");
-		m_windowsSystem.End();
+
+		for (auto& delegate : m_endDelegates)
+			delegate();
 	}
 
 	// Stop the engine

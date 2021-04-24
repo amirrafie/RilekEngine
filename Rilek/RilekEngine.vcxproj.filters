@@ -33,7 +33,10 @@
     <ClInclude Include="Source\Tools\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\WindowSystem\WindowSystem.h">
+    <ClInclude Include="Source\Windows\WindowSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Events\EventManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,7 +53,7 @@
     <ClCompile Include="EntryPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\WindowSystem\WindowSystem.cpp">
+    <ClCompile Include="Source\Windows\WindowSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

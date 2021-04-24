@@ -160,10 +160,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\CoreEngine.h" />
+    <ClInclude Include="Source\Events\EventManager.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\Tools\Delegate.h" />
     <ClInclude Include="Source\Tools\Logger.h" />
-    <ClInclude Include="Source\WindowSystem\WindowSystem.h" />
+    <ClInclude Include="Source\Windows\WindowSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp" />
@@ -175,7 +176,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Source\Tools\Logger.cpp" />
-    <ClCompile Include="Source\WindowSystem\WindowSystem.cpp" />
+    <ClCompile Include="Source\Windows\WindowSystem.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
