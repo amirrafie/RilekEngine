@@ -1,6 +1,6 @@
 workspace "RilekEngine"
 	architecture "x64"
-	configuration 
+	configurations
 	{
 	"Debug", 
 	"Release"
@@ -13,8 +13,12 @@ project "RilekEngine"
 	kind "WindowedApp"
 	language "C++"
 
-	cppdialect "C++17"
+    cppdialect "C++17"
     systemversion "latest"
+	flags
+    {
+        "MultiProcessorCompile"
+    }
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -28,9 +32,9 @@ project "RilekEngine"
 		"%{prj.name}/Source/**.cpp"
 	}
 
-	include
+	includedirs 
 	{
-		"%{prj.name}/Source/",
+		"%{prj.name}/Source",
 		"%{prj.name}/Deps/spdlog/include"
 	}
 
@@ -40,13 +44,13 @@ project "RilekEngine"
 		"_WINDOWS"
 	}
 
-	filter "configuration:Debug"
+	filter "configurations:Debug"
 		defines 
 		{
 			"_DEBUG"
 		}
 
-	filter "configuration:Release"
+	filter "configurations:Release"
 		defines 
 		{
 			"NDEBUG"

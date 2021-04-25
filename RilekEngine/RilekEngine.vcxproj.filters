@@ -50,10 +50,10 @@
     <ClCompile Include="Source\Core\CoreEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EntryPoint.cpp">
+    <ClCompile Include="Source\Windows\WindowSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Windows\WindowSystem.cpp">
+    <ClCompile Include="Source\EntryPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
