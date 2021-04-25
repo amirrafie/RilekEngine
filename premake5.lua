@@ -1,5 +1,8 @@
+-- https://premake.github.io/docs/
+
 workspace "RilekEngine"
 	architecture "x64"
+
 	configurations
 	{
 	"Debug", 
@@ -45,12 +48,16 @@ project "RilekEngine"
 	}
 
 	filter "configurations:Debug"
+	
+		runtime "Debug"
 		defines 
 		{
 			"_DEBUG"
 		}
 
 	filter "configurations:Release"
+
+		
 		defines 
 		{
 			"NDEBUG"

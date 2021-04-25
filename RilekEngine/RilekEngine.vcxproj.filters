@@ -1,60 +1,48 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Events">
+      <UniqueIdentifier>{3A8963B1-262B-8E87-0FE6-A1DBFB2615D8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{16CF2D0E-82E3-55BF-4B65-F91EB73852F0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Tools">
-      <UniqueIdentifier>{b4157404-50af-44b8-9265-e6bed35aef6a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Tools\Delegates">
-      <UniqueIdentifier>{80fc5814-e30b-498b-b39d-baa523ac6bbd}</UniqueIdentifier>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{5032B729-BC11-36C5-C529-C19B31889C26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Tools\Delegate.h">
-      <Filter>Source Files\Tools\Delegates</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Core\CoreEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Tools\Logger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Windows\WindowSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Events\EventManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Events</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tools\Delegate.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tools\Logger.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Windows\WindowSystem.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Tools\Logger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Core\CoreEngine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntryPoint.cpp" />
+    <ClCompile Include="Source\Tools\Logger.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="Source\Windows\WindowSystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Windows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EntryPoint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="Source\stdafx.cpp" />
   </ItemGroup>
 </Project>
