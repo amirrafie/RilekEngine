@@ -2,7 +2,7 @@
 #include <memory>
 #include <vector>
 
-#include "Tools/Delegate.h"
+#include "Tools/Delegate/Delegate.h"
 
 #define CREATE_SYSTEM(s) CreateSystem<s>(#s)
 

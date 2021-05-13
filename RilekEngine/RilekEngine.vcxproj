@@ -90,15 +90,16 @@
   <ItemGroup>
     <ClInclude Include="Source\Core\CoreEngine.h" />
     <ClInclude Include="Source\Events\EventManager.h" />
-    <ClInclude Include="Source\Tools\Delegate.h" />
-    <ClInclude Include="Source\Tools\Logger.h" />
+    <ClInclude Include="Source\Tools\Delegate\Delegate.h" />
+    <ClInclude Include="Source\Tools\Logger\Logger.h" />
     <ClInclude Include="Source\Windows\WindowSystem.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\CoreEngine.cpp" />
     <ClCompile Include="Source\EntryPoint.cpp" />
-    <ClCompile Include="Source\Tools\Logger.cpp" />
+    <ClCompile Include="Source\Events\EventManager.cpp" />
+    <ClCompile Include="Source\Tools\Logger\Logger.cpp" />
     <ClCompile Include="Source\Windows\WindowSystem.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
