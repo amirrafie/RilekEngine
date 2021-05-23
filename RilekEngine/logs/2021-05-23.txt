@@ -1,0 +1,6 @@
+05/23/21:[22:55:32]: [INFO] C:\Users\Amir\Documents\GitHub\RilekEngine\RilekEngine\Source\Core\CoreEngine.cpp Line 36
+05/23/21:[22:55:32]: Initialising Rilek Engine
+05/23/21:[22:55:32]: [INFO] C:\Users\Amir\Documents\GitHub\RilekEngine\RilekEngine\Source\Windows\WindowSystem.cpp Line 13
+05/23/21:[22:55:32]: Initialising Window
+05/23/21:[22:55:36]: [INFO] C:\Users\Amir\Documents\GitHub\RilekEngine\RilekEngine\Source\Core\CoreEngine.cpp Line 68
+05/23/21:[22:55:36]: Shutting down Rilek Engine

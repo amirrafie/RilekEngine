@@ -2,8 +2,8 @@
 #include "CoreEngine.h"
 
 
-#include "Tools/Delegate.h"
-#include "Tools/Logger.h"
+#include "Tools/Delegate/Delegate.h"
+#include "Tools/Logger/Logger.h"
 
 #include "Windows/WindowSystem.h"
 

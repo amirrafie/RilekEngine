@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 
-#include "Tools/Delegate.h"
+#include "Tools/Delegate/Delegate.h"
 #include "Core/CoreEngine.h"
 
 #define MAX_LOADSTRING 100
