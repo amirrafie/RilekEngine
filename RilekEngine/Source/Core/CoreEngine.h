@@ -40,6 +40,12 @@ namespace Rilek::Core
 		}
 
 
+		template<typename System>
+		System* GetSystem()
+		{
+			return static_cast<System*>(m_systemContainer[GetSystemID<System>()]);
+		}
+
 		// Create instance of a system and store the init and end delegate
 		template<typename System>
 		System* CreateSystem(const char* systemName)

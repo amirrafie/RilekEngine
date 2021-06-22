@@ -10,6 +10,12 @@
     <Filter Include="Tools">
       <UniqueIdentifier>{16CF2D0E-82E3-55BF-4B65-F91EB73852F0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools\Delegate">
+      <UniqueIdentifier>{C06069BB-AC2E-5DC1-95C2-CDE7812F3926}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\Logger">
+      <UniqueIdentifier>{2550A31D-11B3-32C2-BA38-6B78A67AFE44}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Windows">
       <UniqueIdentifier>{5032B729-BC11-36C5-C529-C19B31889C26}</UniqueIdentifier>
     </Filter>
@@ -21,29 +27,31 @@
     <ClInclude Include="Source\Events\EventManager.h">
       <Filter>Events</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tools\Delegate\Delegate.h">
+      <Filter>Tools\Delegate</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tools\Logger\Logger.h">
+      <Filter>Tools\Logger</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Windows\WindowSystem.h">
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Source\stdafx.h" />
-    <ClInclude Include="Source\Tools\Delegate\Delegate.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Tools\Logger\Logger.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\CoreEngine.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\EntryPoint.cpp" />
+    <ClCompile Include="Source\Events\EventManager.cpp">
+      <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tools\Logger\Logger.cpp">
+      <Filter>Tools\Logger</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Windows\WindowSystem.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="Source\stdafx.cpp" />
-    <ClCompile Include="Source\Events\EventManager.cpp" />
-    <ClCompile Include="Source\Tools\Logger\Logger.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

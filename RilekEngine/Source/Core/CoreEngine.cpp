@@ -14,12 +14,16 @@ namespace Rilek::Core
 	void Engine::CreateSystems()
 	{
 		m_windowsSystem = CREATE_SYSTEM(Rilek::Window::WindowSystem);
+
 	}
 
 	void Engine::RegisterSystems()
 	{
 		RegisterUpdateSystems<
 			Rilek::Window::WindowSystem
+		>();
+
+		RegisterFixedUpdateSystems<
 		>();
 	}
 
