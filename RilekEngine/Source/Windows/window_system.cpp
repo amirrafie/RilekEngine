@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "WindowSystem.h"
+#include "window_system.h"
 
-#include "Core/CoreEngine.h"
+#include "Core/core_engine.h"
 
 namespace Rilek::Window
 {
-	void WindowSystem::InitWindows(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
+	void window_system::init_windows(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 	{
         UNREFERENCED_PARAMETER(hPrevInstance);
         UNREFERENCED_PARAMETER(lpCmdLine);
@@ -47,7 +47,7 @@ namespace Rilek::Window
 
         ShowWindow(hwnd, nCmdShow);
 	}
-	void WindowSystem::Update(float)
+	void window_system::update(float)
 	{
         MSG msg = { };
         if (GetMessage(&msg, NULL, 0, 0))
@@ -57,7 +57,7 @@ namespace Rilek::Window
         }
 	}
 
-	void WindowSystem::End()
+	void window_system::end()
 	{
 	}
 }
@@ -69,7 +69,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
     case WM_DESTROY:
         PostQuitMessage(0);
-        Rilek::Core::Engine::GetEngine()->Stop();
+        Rilek::Core::engine::get_engine()->stop();
         return 0;
 
     case WM_PAINT:

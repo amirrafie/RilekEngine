@@ -3,8 +3,8 @@
 
 #include "stdafx.h"
 
-#include "Tools/Delegate/Delegate.h"
-#include "Core/CoreEngine.h"
+#include "Tools/Delegate/delegate.h"
+#include "Core/core_engine.h"
 
 #define MAX_LOADSTRING 100
 
@@ -18,10 +18,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow){
     /////////////////////////////////////////////////////////////////
-    Rilek::Core::Engine engine;
-    engine.Init(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-    engine.Update();
-    engine.End();
+    Rilek::Core::engine engine;
+    engine.init(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    engine.update();
+    engine.end();
     /////////////////////////////////////////////////////////////////
     return 0;
 }

@@ -13,10 +13,10 @@
 
 namespace Rilek::Tools
 {
-	std::shared_ptr<spdlog::logger> Logger::m_consoleLogger;
-	std::shared_ptr<spdlog::logger> Logger::m_fileLogger;
+	std::shared_ptr<spdlog::logger> logger::m_consoleLogger;
+	std::shared_ptr<spdlog::logger> logger::m_fileLogger;
 
-	void Logger::Init()
+	void logger::init()
 	{
 		spdlog::set_pattern("%^%D:[%T]: %v%$");
 		m_consoleLogger = spdlog::stdout_color_mt("console");
@@ -34,11 +34,11 @@ namespace Rilek::Tools
 		m_fileLogger->set_level(spdlog::level::trace);
 	}
 
-	std::shared_ptr<spdlog::logger>& Logger::GetConsoleLogger()
+	std::shared_ptr<spdlog::logger>& logger::get_console_logger()
 	{
 		return m_consoleLogger;
 	}
-	std::shared_ptr<spdlog::logger>& Logger::GetFileLogger()
+	std::shared_ptr<spdlog::logger>& logger::get_file_logger()
 	{
 		return m_fileLogger;
 	}

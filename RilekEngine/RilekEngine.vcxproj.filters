@@ -24,43 +24,42 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Core\CoreEngine.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Events\EventManager.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Tools\Delegate\Delegate.h">
-      <Filter>Tools\Delegate</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Tools\Logger\Logger.h">
-      <Filter>Tools\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Windows\WindowSystem.h">
-      <Filter>Windows</Filter>
-    </ClInclude>
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\Tools\Containers\sparse_set.h">
       <Filter>Tools\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ECS\World.h" />
+    <ClInclude Include="Source\Events\event_manager.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ECS\component_container.h" />
+    <ClInclude Include="Source\Tools\Delegate\delegate.h">
+      <Filter>Tools\Delegate</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Windows\window_system.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tools\Logger\logger.h">
+      <Filter>Tools\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\core_engine.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Core\CoreEngine.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Source\EntryPoint.cpp" />
-    <ClCompile Include="Source\Events\EventManager.cpp">
+    <ClCompile Include="Source\stdafx.cpp" />
+    <ClCompile Include="Source\Events\event_manager.cpp">
       <Filter>Events</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tools\Logger\Logger.cpp">
-      <Filter>Tools\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Windows\WindowSystem.cpp">
+    <ClCompile Include="Source\Windows\window_system.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\stdafx.cpp" />
-    <ClCompile Include="Source\Tools\Containers\sparse_set.cpp">
-      <Filter>Tools\Containers</Filter>
+    <ClCompile Include="Source\Tools\Logger\logger.cpp">
+      <Filter>Tools\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\core_engine.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

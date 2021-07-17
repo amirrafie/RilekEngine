@@ -3,28 +3,28 @@
 namespace Rilek
 {
 	template<typename... >
-	class Delegate;
+	class delegate;
 
 	template<typename Ret, typename... TArgs>
-	class Delegate<Ret(TArgs...)>
+	class delegate<Ret(TArgs...)>
 	{
 	public:
-		Delegate() : m_funcPtr(nullptr), m_instance(nullptr) {}
+		delegate() : m_function_ptr(nullptr), m_instance(nullptr) {}
 
 		template<auto Fn>
-		void Attach()
+		void attach()
 		{
-			m_funcPtr = [](void*, TArgs... args)
+			m_function_ptr = [](void*, TArgs... args)
 			{
 				return Ret(std::invoke(Fn, args...));
 			};
 		}
 
 		template<auto Fn, typename T>
-		void Attach(T* instance)
+		void attach(T* instance)
 		{
 			m_instance = instance;
-			m_funcPtr = [](void* instance, TArgs... args)
+			m_function_ptr = [](void* instance, TArgs... args)
 			{
 				return Ret(std::invoke(Fn, static_cast<T*>(instance), args...));
 			};
@@ -32,13 +32,13 @@ namespace Rilek
 
 		Ret operator()(TArgs... args)
 		{
-			assert((m_funcPtr != nullptr) && "Delegate has no function attached!");
-			return m_funcPtr(m_instance, args...);
+			assert((m_function_ptr != nullptr) && "Delegate has no function attached!");
+			return m_function_ptr(m_instance, args...);
 		}
 
 	private:
-		typedef Ret(*FuncPtr)(void*, TArgs...);
-		FuncPtr m_funcPtr;
+		typedef Ret(*function_pointer)(void*, TArgs...);
+		function_pointer m_function_ptr;
 		void* m_instance;
 	};
 }
