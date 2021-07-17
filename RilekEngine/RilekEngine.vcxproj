@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Core\CoreEngine.h" />
     <ClInclude Include="Source\Events\EventManager.h" />
+    <ClInclude Include="Source\Tools\Containers\sparse_set.h" />
     <ClInclude Include="Source\Tools\Delegate\Delegate.h" />
     <ClInclude Include="Source\Tools\Logger\Logger.h" />
     <ClInclude Include="Source\Windows\WindowSystem.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="Source\Core\CoreEngine.cpp" />
     <ClCompile Include="Source\EntryPoint.cpp" />
     <ClCompile Include="Source\Events\EventManager.cpp" />
+    <ClCompile Include="Source\Tools\Containers\sparse_set.cpp" />
     <ClCompile Include="Source\Tools\Logger\Logger.cpp" />
     <ClCompile Include="Source\Windows\WindowSystem.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
@@ -108,4 +110,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-</Project> 
+</Project>

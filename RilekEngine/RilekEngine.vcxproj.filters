@@ -19,6 +19,9 @@
     <Filter Include="Windows">
       <UniqueIdentifier>{5032B729-BC11-36C5-C529-C19B31889C26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools\Containers">
+      <UniqueIdentifier>{495f5b0c-5006-43c7-b9f8-e37afb85f5cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\CoreEngine.h">
@@ -37,6 +40,9 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Source\stdafx.h" />
+    <ClInclude Include="Source\Tools\Containers\sparse_set.h">
+      <Filter>Tools\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\CoreEngine.cpp">
@@ -53,5 +59,8 @@
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="Source\stdafx.cpp" />
+    <ClCompile Include="Source\Tools\Containers\sparse_set.cpp">
+      <Filter>Tools\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
