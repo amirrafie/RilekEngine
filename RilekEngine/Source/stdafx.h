@@ -1,4 +1,7 @@
 #pragma once
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
 
 #include <Windows.h>
 #include <memory>
@@ -7,3 +10,5 @@
 #include <vector>
 
 #include "Tools/Logger/logger.h"
+#include "Tools/Delegate/delegate.h"
+#include "Tools/Delegate/delegate_container.h"

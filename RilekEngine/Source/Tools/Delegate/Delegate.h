@@ -30,6 +30,7 @@ namespace Rilek
 			};
 		}
 
+		// calls the delegate
 		Ret operator()(TArgs... args)
 		{
 			assert((m_function_ptr != nullptr) && "Delegate has no function attached!");

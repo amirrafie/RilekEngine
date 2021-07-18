@@ -90,10 +90,12 @@
   <ItemGroup>
     <ClInclude Include="Source\Core\core_engine.h" />
     <ClInclude Include="Source\ECS\component_container.h" />
-    <ClInclude Include="Source\ECS\World.h" />
+    <ClInclude Include="Source\ECS\entity.h" />
+    <ClInclude Include="Source\ECS\world.h" />
     <ClInclude Include="Source\Events\event_manager.h" />
     <ClInclude Include="Source\Tools\Containers\sparse_set.h" />
     <ClInclude Include="Source\Tools\Delegate\delegate.h" />
+    <ClInclude Include="Source\Tools\Delegate\delegate_container.h" />
     <ClInclude Include="Source\Tools\Logger\logger.h" />
     <ClInclude Include="Source\Windows\window_system.h" />
     <ClInclude Include="Source\stdafx.h" />

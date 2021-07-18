@@ -28,7 +28,6 @@
     <ClInclude Include="Source\Tools\Containers\sparse_set.h">
       <Filter>Tools\Containers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ECS\World.h" />
     <ClInclude Include="Source\Events\event_manager.h">
       <Filter>Events</Filter>
     </ClInclude>
@@ -45,6 +44,9 @@
     <ClInclude Include="Source\Core\core_engine.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tools\Delegate\delegate_container.h" />
+    <ClInclude Include="Source\ECS\entity.h" />
+    <ClInclude Include="Source\ECS\world.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\EntryPoint.cpp" />

@@ -24,8 +24,6 @@ namespace Rilek::Core
 		using system_type = std::unique_ptr<void, void(*)(void*)>;
 		using system_ID = unsigned int;
 
-
-
 		system_ID generate_system_ID()
 		{
 			static system_ID systemID = 0;

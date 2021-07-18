@@ -6,7 +6,7 @@
 
 namespace Rilek::Events
 {
-	using event_ID = unsigned int;
+	using event_ID = size_t;
 
 	event_ID generate_event_ID()
 	{
