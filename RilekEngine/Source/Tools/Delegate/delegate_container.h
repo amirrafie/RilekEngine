@@ -17,7 +17,7 @@ namespace Rilek
 		}
 
 		// note, different delegate containers have different ids for the same function
-		template<auto FN>
+		template<auto Fn>
 		delegate_id get_delegate_ID()
 		{
 			static delegate_id ID = generate_delegate_ID();
@@ -47,11 +47,11 @@ namespace Rilek
 			return ID;
 		}
 
-		void call_delegates(TArgs... args)
+		void call_delegates(TArgs... t_args)
 		{
 			for (auto& delegate : *this)
 			{
-				delegate(args);
+				delegate(std::forward<TArgs>(t_args)...);
 			}
 		}
 	};

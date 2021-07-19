@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\core_engine.cpp" />
+    <ClCompile Include="Source\ECS\component_container.cpp" />
     <ClCompile Include="Source\EntryPoint.cpp" />
     <ClCompile Include="Source\Events\event_manager.cpp" />
     <ClCompile Include="Source\Tools\Logger\logger.cpp" />

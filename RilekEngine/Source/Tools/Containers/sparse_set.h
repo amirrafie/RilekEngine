@@ -229,10 +229,10 @@ namespace Rilek
 
 		bool contains(size_t t_index) const
 		{
-			return (t_index < m_capcity&& m_sparse[t_index] != empty_index);
+			return (t_index < m_capcity && m_sparse[t_index] != empty_index);
 		}
 
-	private:
+	protected:
 		static const size_t empty_index = std::numeric_limits<size_t>::max();
 
 		std::vector<size_t> m_sparse;
