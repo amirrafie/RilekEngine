@@ -21,11 +21,17 @@ namespace Rilek::Core
 		float m_prev_dt;
 	};
 
-	//wrapper functions
+	//wrapper functions for delegates
 	template<typename System>
 	void system_init_wrapper(System* t_system_ptr, Rilek::ECS::world&)
 	{
 		(*t_system_ptr).System::init();
+	}
+
+	template<typename System>
+	void system_end_wrapper(System* t_system_ptr, Rilek::ECS::world&)
+	{
+		(*t_system_ptr).System::end();
 	}
 
 	class engine
@@ -67,21 +73,46 @@ namespace Rilek::Core
 			System* system_ptr = static_cast<System*>(system_ref.get());
 
 			// store init delegate
+			// void init(Rilek::ECS::world&)
 			if constexpr (std::is_invocable_v<decltype(&System::init), System&, Rilek::ECS::world&>)
 			{
 				auto& init_delegate_ref = m_initDelegates.emplace_back();
 				init_delegate_ref.attach<&System::init>(system_ptr);
 			}
+			// void init()
 			else if constexpr (std::is_invocable_v<decltype(&System::init), System&>)
 			{
 				auto& init_delegate_ref = m_initDelegates.emplace_back();
 				init_delegate_ref.attach<&system_init_wrapper<System>>(system_ptr);
 			}
-
+			else
+			{
+				static_assert(
+					std::is_invocable_v<decltype(&System::init), System&, Rilek::ECS::world&> || 
+					std::is_invocable_v<decltype(&System::init), System&>, 
+					"System has no valid init function!");
+			}
 
 			// store end delegate
-			auto& end_delegate_ref = m_endDelegates.emplace_back();
-			end_delegate_ref.attach<&System::end>(system_ptr);
+			// void end(Rilek::ECS::world&)
+			if constexpr (std::is_invocable_v<decltype(&System::end), System&, Rilek::ECS::world&>)
+			{
+				auto& end_delegate_ref = m_endDelegates.emplace_back();
+				end_delegate_ref.attach<&System::end>(system_ptr);
+			}
+			// void end()
+			else if constexpr (std::is_invocable_v<decltype(&System::end), System&>)
+			{
+				auto& end_delegate_ref = m_endDelegates.emplace_back();
+				end_delegate_ref.attach<&system_end_wrapper<System>>(system_ptr);
+			}
+			else
+			{
+				static_assert(
+					std::is_invocable_v<decltype(&System::end), System&, Rilek::ECS::world&> ||
+					std::is_invocable_v<decltype(&System::end), System&>, 
+					"System has no valid end function!");
+			}
 
 			// create system data
 			auto& data = m_systemDataContainer.emplace_back();
