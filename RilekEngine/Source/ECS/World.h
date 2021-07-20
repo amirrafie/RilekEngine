@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <unordered_set>
 
 #include "component_container.h"
 namespace Rilek::ECS
@@ -42,6 +43,13 @@ namespace Rilek::ECS
 		}
 		
 	private:
+		// used to keep track of exiting entities
+		Rilek::sparse_set<entity> m_entities;
+		// list of entities to delete
+		std::unordered_set<entity> m_free_list;
+		// list of recycable entites when creating new entities
+		std::vector<entity> m_recycable_entities;
+
 		std::vector<component_container_wrapper> m_component_containers;
 	};
 }

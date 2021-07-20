@@ -12,6 +12,11 @@ namespace Rilek::ECS
 	{
 		int a;
 		int b;
+
+		bool operator==(const testcomp& rhs)
+		{
+			return a == rhs.a && b == rhs.b;
+		}
 	};
 
 	template<typename ComponentType>
@@ -112,7 +117,7 @@ namespace Rilek::ECS
 		{
 			for (size_t index = 0; index < sparse_set<ComponentType>::m_dense.size(); ++index)
 			{
-				if (std::tie(sparse_set<ComponentType>::m_dense[index]) == std::tie(component))
+				if (sparse_set<ComponentType>::m_dense[index] == component)
 				{
 					return sparse_set<ComponentType>::m_sparse_indices[index];
 				}
