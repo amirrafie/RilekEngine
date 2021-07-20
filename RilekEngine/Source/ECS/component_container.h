@@ -107,6 +107,7 @@ namespace Rilek::ECS
 		//////////////////////
 		// LOOKUP
 		//////////////////////
+		// find based on component value
 		entity Find(const ComponentType& component)
 		{
 			for (size_t index = 0; index < sparse_set<ComponentType>::m_dense.size(); ++index)
@@ -131,8 +132,27 @@ namespace Rilek::ECS
 				RLK_ERROR("Entity {0} trying to update component that it does not have!", t_entity);
 			}
 			ComponentType& component = sparse_set<ComponentType>::at(t_entity);
-			t_function(component);
-			m_on_update_delegates.call_delegates(t_world, t_entity, component);
+
+			if constexpr (std::is_invocable_v<UpdateFunction, ComponentType>)
+			{
+				t_function(component);
+				m_on_update_delegates.call_delegates(t_world, t_entity, component);
+			}
+			else if constexpr (std::is_invocable_v<UpdateFunction, ComponentType, entity>)
+			{
+				t_function(component, t_entity);
+				m_on_update_delegates.call_delegates(t_world, t_entity, component);
+			}
+			else if constexpr (std::is_invocable_v<UpdateFunction, entity, ComponentType>)
+			{
+				t_function(t_entity, component);
+				m_on_update_delegates.call_delegates(t_world, t_entity, component);
+			}
+			else if constexpr (std::is_invocable_v<UpdateFunction, entity>)
+			{
+				t_function(t_entity);
+				m_on_update_delegates.call_delegates(t_world, t_entity, component);
+			}
 		}
 
 		template<typename UpdateFunction>
@@ -140,8 +160,26 @@ namespace Rilek::ECS
 		{
 			for (size_t index = 0; index < sparse_set<ComponentType>::m_dense.size(); ++index)
 			{
-				t_function(sparse_set<ComponentType>::m_dense[index]);
-				m_on_update_delegates.call_delegates(t_world, sparse_set<ComponentType>::m_sparse_indices[index], sparse_set<ComponentType>::m_dense[index]);
+				if constexpr (std::is_invocable_v<UpdateFunction, ComponentType>)
+				{
+					t_function(sparse_set<ComponentType>::m_dense[index]);
+					m_on_update_delegates.call_delegates(t_world, sparse_set<ComponentType>::m_sparse_indices[index], sparse_set<ComponentType>::m_dense[index]);
+				}
+				else if constexpr (std::is_invocable_v<UpdateFunction, ComponentType, entity>)
+				{
+					t_function(sparse_set<ComponentType>::m_dense[index], sparse_set<ComponentType>::m_sparse_indices[index]);
+					m_on_update_delegates.call_delegates(t_world, sparse_set<ComponentType>::m_sparse_indices[index], sparse_set<ComponentType>::m_dense[index]);
+				}
+				else if constexpr (std::is_invocable_v<UpdateFunction, entity, ComponentType>)
+				{
+					t_function(sparse_set<ComponentType>::m_sparse_indices[index], sparse_set<ComponentType>::m_dense[index]);
+					m_on_update_delegates.call_delegates(t_world, sparse_set<ComponentType>::m_sparse_indices[index], sparse_set<ComponentType>::m_dense[index]);
+				}
+				else if constexpr (std::is_invocable_v<UpdateFunction, entity>)
+				{
+					t_function(t_entity);
+					m_on_update_delegates.call_delegates(t_world, sparse_set<ComponentType>::m_sparse_indices[index], sparse_set<ComponentType>::m_dense[index]);
+				}
 			}
 		}
 

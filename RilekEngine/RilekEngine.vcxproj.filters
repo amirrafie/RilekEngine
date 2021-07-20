@@ -64,5 +64,6 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\ECS\component_container.cpp" />
+    <ClCompile Include="Source\ECS\world.cpp" />
   </ItemGroup>
 </Project>

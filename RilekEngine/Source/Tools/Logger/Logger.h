@@ -33,11 +33,15 @@
 
 #endif
 
+#define RLK_ASSERT(x, ...) { if(!(x)){ RLK_ERROR(__VA_ARGS__); assert(x);}}
+
 #else // Release
 #define RLK_TRACE(...)
 #define RLK_WARN(...)
 #define RLK_INFO(...)
 #define RLK_ERROR(...)
+
+#define RLK_ASSERT(x, ...)
 
 #endif
 

@@ -5,7 +5,8 @@
 
 namespace Rilek::Window
 {
-	void window_system::init_windows(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
+
+    void window_system::init_windows(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 	{
         UNREFERENCED_PARAMETER(hPrevInstance);
         UNREFERENCED_PARAMETER(lpCmdLine);
@@ -47,7 +48,8 @@ namespace Rilek::Window
 
         ShowWindow(hwnd, nCmdShow);
 	}
-	void window_system::update(float)
+
+    void window_system::update(Rilek::ECS::world&, float)
 	{
         MSG msg = { };
         if (GetMessage(&msg, NULL, 0, 0))
@@ -57,7 +59,7 @@ namespace Rilek::Window
         }
 	}
 
-	void window_system::end()
+	void window_system::end(Rilek::ECS::world&)
 	{
 	}
 }

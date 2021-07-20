@@ -8,6 +8,7 @@
 #include <functional>
 #include <cassert>
 #include <vector>
+#include <chrono>
 
 #include "Tools/Logger/logger.h"
 #include "Tools/Delegate/delegate.h"

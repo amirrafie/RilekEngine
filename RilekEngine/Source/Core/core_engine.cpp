@@ -51,19 +51,44 @@ namespace Rilek::Core
 		else
 			m_windowsSystem->init_windows(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 
-
-
+		// delta time stuffs
+		m_fixed_frame_dt = 1.f / 60.f;
+		m_accumulated_dt = 0;
 
 		for (auto& delegate : m_initDelegates)
-			delegate();
+			delegate(m_current_world);
 	}
 
 	void engine::update()
 	{
+		m_frame_start_time = std::chrono::high_resolution_clock::now();
+
 		while (m_is_running)
 		{
+			m_frame_end_time = std::chrono::high_resolution_clock::now();
+			auto chrono_frame_duration = m_frame_end_time - m_frame_start_time;
+			m_frame_start_time = std::chrono::high_resolution_clock::now();
+			m_prev_frame_dt = std::chrono::duration_cast<std::chrono::duration<float>>(chrono_frame_duration).count();
+
+			// If dt is more than fixed time, fixed update would require more steps
+			int m_steps = 0;
+			m_accumulated_dt += m_prev_frame_dt;
+			while (m_accumulated_dt >= m_fixed_frame_dt)
+			{
+				++m_steps;
+				m_accumulated_dt -= m_fixed_frame_dt;
+			}
+
+			// fixed update
+			for (int i = 0; i < m_steps; ++i)
+			{
+				for (auto& delegate : m_fixedUpdateDelegates)
+					delegate(m_current_world, m_fixed_frame_dt);
+			}
+
+			// update
 			for (auto& delegate : m_updateDelegates)
-				delegate(0.f);
+				delegate(m_current_world, m_prev_frame_dt);
 		}
 	}
 
@@ -72,7 +97,7 @@ namespace Rilek::Core
 		RLK_INFO("Shutting down Rilek Engine");
 
 		for (auto& delegate : m_endDelegates)
-			delegate();
+			delegate(m_current_world);
 	}
 
 	// Stop the engine
