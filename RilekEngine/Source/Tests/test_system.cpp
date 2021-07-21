@@ -11,6 +11,8 @@ void Rilek::test_system::init(Rilek::ECS::world& world)
 	{
 		world.create_entity();
 	}
+	m_ev_listener.subscribe<Events::test_event, &test_system::test_event_trigger>(this);
+
 }
 
 void Rilek::test_system::update(Rilek::ECS::world& world, float dt)
@@ -26,27 +28,45 @@ void Rilek::test_system::update(Rilek::ECS::world& world, float dt)
 
 	std::cin >> command;
 
-	if (command == 1)
+	switch (command)
+	{
+	case 0:
+	{
+		std::cin >> val;
+		world.remove_component<test_component>(val);
+	}
+		break;
+	case 1:
 	{
 		std::cin >> val;
 		test_component c;
 		c.m_value = val;
 		world.add_component<test_component>(val, c);
 	}
-	else if (command == 0)
+		break;
+	case 2:
 	{
 		std::cin >> val;
-		world.remove_component<test_component>(val);
+		Events::test_event ev;
+		ev.value = val;
+		m_ev_dispatcher.dispatch_event(ev);
 	}
-	else
+		break;
+	default:
 	{
-		RLK_TRACE("Input 1 to add component. Input 0 to remove component");
+		RLK_TRACE("Input 0 to remove component. Input 1 to add component. Input 2 to send event ");
 	}
-
+		break;
+	}
 }
 
 void Rilek::test_system::fixed_update(float dt)
 {
 	++test;
 	
+}
+
+void Rilek::test_system::test_event_trigger(const Events::test_event& e)
+{
+	RLK_TRACE("EVENT : {0}", e.value);
 }

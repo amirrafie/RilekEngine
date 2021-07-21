@@ -6,20 +6,10 @@
 
 namespace Rilek::Events
 {
-	//using event_ID = size_t;
-
-	//event_ID generate_event_ID()
-	//{
-	//	static event_ID systemID = 0;
-	//	return systemID++;
-	//}
-
-	//template<typename System>
-	//event_ID get_event_ID()
-	//{
-	//	static event_ID ID = GenerateSystemID();
-	//	return ID;
-	//}
+	struct test_event
+	{
+		int value;
+	};
 
 	template <typename EventType>
 	class event_manager
@@ -46,7 +36,7 @@ namespace Rilek::Events
 			delegate_ref.attach<Fn>();
 		}
 
-		void handle_event(EventType& ev)
+		void handle_event(const EventType& ev)
 		{
 			for (auto& eventHandler : m_event_handlers)
 			{
@@ -56,14 +46,15 @@ namespace Rilek::Events
 
 	private:
 		event_manager<EventType>(){}
-		std::vector<Rilek::delegate<void(EventType&)>> m_event_handlers;
+		std::vector<Rilek::delegate<void(const EventType&)>> m_event_handlers;
 	};
 
 
 	class EventDispatcher
 	{
+	public:
 		template <typename EventType>
-		void dispatch_event(EventType& ev)
+		void dispatch_event(const EventType& ev)
 		{
 			event_manager<EventType>::get_instance().handle_event(ev);
 		}
@@ -77,13 +68,13 @@ namespace Rilek::Events
 		template <typename EventType, auto Fn>
 		void subscribe()
 		{
-			event_manager<EventType>::add_listener<Fn>();
+			event_manager<EventType>::get_instance().add_listener<Fn>();
 		}
 
 		template <typename EventType, auto Fn, typename InstanceType>
 		void subscribe(InstanceType* instance)
 		{
-			event_manager<EventType>::add_listener<Fn>(instance);
+			event_manager<EventType>::get_instance().add_listener<Fn>(instance);
 		}
 	};
 }
