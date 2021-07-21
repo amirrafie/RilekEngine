@@ -135,7 +135,7 @@ namespace Rilek::Core
 	{    
 		if (AllocConsole())
 		{
-			FILE* cout,* cin,* err;
+			FILE* cout,* cin;
 
 			freopen_s(&cout, "CONOUT$", "w", stdout);
 			if (freopen_s(&cin, "CONIN$", "w+", stdin) != 0)
