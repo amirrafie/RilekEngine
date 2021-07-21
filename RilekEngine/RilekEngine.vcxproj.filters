@@ -47,6 +47,8 @@
     <ClInclude Include="Source\Tools\Delegate\delegate_container.h" />
     <ClInclude Include="Source\ECS\entity.h" />
     <ClInclude Include="Source\ECS\world.h" />
+    <ClInclude Include="Source\ECS\Components\test_component.h" />
+    <ClInclude Include="Source\Tests\test_system.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\EntryPoint.cpp" />
@@ -65,5 +67,6 @@
     </ClCompile>
     <ClCompile Include="Source\ECS\component_container.cpp" />
     <ClCompile Include="Source\ECS\world.cpp" />
+    <ClCompile Include="Source\Tests\test_system.cpp" />
   </ItemGroup>
 </Project>

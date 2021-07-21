@@ -23,16 +23,29 @@ namespace Rilek::Core
 
 	//wrapper functions for delegates
 	template<typename System>
-	void system_init_wrapper(System* t_system_ptr, Rilek::ECS::world&)
-	{
-		(*t_system_ptr).System::init();
-	}
+	void system_init_wrapper(System* t_system_ptr, Rilek::ECS::world&) { (*t_system_ptr).System::init(); }
 
 	template<typename System>
-	void system_end_wrapper(System* t_system_ptr, Rilek::ECS::world&)
-	{
-		(*t_system_ptr).System::end();
-	}
+	void system_end_wrapper(System* t_system_ptr, Rilek::ECS::world&) { (*t_system_ptr).System::end(); }
+
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::update), System&>, bool> = true>
+	void system_update_wrapper(System* t_system_ptr, Rilek::ECS::world&, float) { (*t_system_ptr).System::update(); }
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::update), System&, Rilek::ECS::world&>, bool> = true>
+	void system_update_wrapper(System* t_system_ptr, Rilek::ECS::world& t_world, float) { (*t_system_ptr).System::update(t_world); }
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::update), System&, float>, bool> = true>
+	void system_update_wrapper(System* t_system_ptr, Rilek::ECS::world&, float m_prev_frame_dt) { (*t_system_ptr).System::update(m_prev_frame_dt); }
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::update), System&, float, Rilek::ECS::world&>, bool> = true>
+	void system_update_wrapper(System* t_system_ptr, Rilek::ECS::world& t_world, float m_fixed_dt) { (*t_system_ptr).System::update(m_prev_frame_dt, t_world); }
+
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::fixed_update), System&>, bool> = true>
+	void system_fixed_update_wrapper(System* t_system_ptr, Rilek::ECS::world&, float) { (*t_system_ptr).System::fixed_update(); }
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::fixed_update), System&, Rilek::ECS::world&>, bool> = true>
+	void system_fixed_update_wrapper(System* t_system_ptr, Rilek::ECS::world& t_world, float) { (*t_system_ptr).System::fixed_update(t_world); }
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::fixed_update), System&, float>, bool> = true>
+	void system_fixed_update_wrapper(System* t_system_ptr, Rilek::ECS::world&, float m_fixed_dt) { (*t_system_ptr).System::fixed_update(m_fixed_dt); }
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::fixed_update), System&, float, Rilek::ECS::world&>, bool> = true>
+	void system_fixed_update_wrapper(System* t_system_ptr, Rilek::ECS::world& t_world, float m_fixed_dt) { (*t_system_ptr).System::fixed_update(m_fixed_dt, t_world); }
+
 
 	class engine
 	{
@@ -56,7 +69,9 @@ namespace Rilek::Core
 		template<typename System>
 		System* get_system()
 		{
-			return static_cast<System*>(m_systemContainer[get_system_ID<System>()]);
+			system_ID id = get_system_ID<System>();
+			RLK_ASSERT((id < m_systemContainer.size()),"System was not created!");
+			return static_cast<System*>(m_systemContainer[id]);
 		}
 
 		// Create instance of a system and store the init and end delegate
@@ -140,8 +155,32 @@ namespace Rilek::Core
 			System* system_ptr = static_cast<System*>(system_ref.get());
 
 			// store update delegate
-			auto& update_delegates = m_updateDelegates.emplace_back();
-			update_delegates.attach<&System::update>(system_ptr);
+			// void update(Rilek::ECS::world&, float)
+			if constexpr (std::is_invocable_v<decltype(&System::update), System&, Rilek::ECS::world&, float>)
+			{
+				auto& update_delegate_ref = m_updateDelegates.emplace_back();
+				update_delegate_ref.attach<&System::update>(system_ptr);
+			}
+			else if constexpr (
+				std::is_invocable_v<decltype(&System::update), System&> ||
+				std::is_invocable_v<decltype(&System::update), System&, Rilek::ECS::world&> ||
+				std::is_invocable_v<decltype(&System::update), System&, float> ||
+				std::is_invocable_v<decltype(&System::update), System&, float, Rilek::ECS::world&>
+				)
+			{
+				auto& update_delegate_ref = m_updateDelegates.emplace_back();
+				update_delegate_ref.attach<&system_update_wrapper<System>>(system_ptr);
+			}
+			else
+			{
+				static_assert(
+					std::is_invocable_v<decltype(&System::update), System&, Rilek::ECS::world&, float> ||
+					std::is_invocable_v<decltype(&System::update), System&> ||
+					std::is_invocable_v<decltype(&System::update), System&, Rilek::ECS::world&> ||
+					std::is_invocable_v<decltype(&System::update), System&, float> ||
+					std::is_invocable_v<decltype(&System::update), System&, float, Rilek::ECS::world&>,
+					"System has no valid update function!");
+			}
 		}
 
 		// To register multiple fixed update systems
@@ -161,14 +200,39 @@ namespace Rilek::Core
 			auto& system_ref = m_systemContainer[id];
 			System* system_ptr = static_cast<System*>(system_ref.get());
 
-			// store update delegate
-			auto& fixed_update_delegates = m_fixedUpdateDelegates.emplace_back();
-			fixed_update_delegates.attach<&System::fixed_update>(system_ptr);
+			// store fixed_update delegate
+			// void fixed_update(Rilek::ECS::world&, float)
+			if constexpr (std::is_invocable_v<decltype(&System::fixed_update), System&, Rilek::ECS::world&, float>)
+			{
+				auto& fixed_update_delegates = m_fixedUpdateDelegates.emplace_back();
+				fixed_update_delegates.attach<&System::fixed_update>(system_ptr);
+			}
+			else if constexpr (
+				std::is_invocable_v<decltype(&System::fixed_update), System&> ||
+				std::is_invocable_v<decltype(&System::fixed_update), System&, Rilek::ECS::world&> ||
+				std::is_invocable_v<decltype(&System::fixed_update), System&, float> ||
+				std::is_invocable_v<decltype(&System::fixed_update), System&, float, Rilek::ECS::world&>
+				)
+			{
+				auto& fixed_update_delegates = m_fixedUpdateDelegates.emplace_back();
+				fixed_update_delegates.attach<&system_fixed_update_wrapper<System>>(system_ptr);
+			}
+			else
+			{
+				static_assert(
+					std::is_invocable_v<decltype(&System::fixed_update), System&, Rilek::ECS::world&, float> ||
+					std::is_invocable_v<decltype(&System::fixed_update), System&> ||
+					std::is_invocable_v<decltype(&System::fixed_update), System&, Rilek::ECS::world&> ||
+					std::is_invocable_v<decltype(&System::fixed_update), System&, float> ||
+					std::is_invocable_v<decltype(&System::fixed_update), System&, float, Rilek::ECS::world&>,
+					"System has no valid fixed_update function!");
+			}
+
 		}
 
 
 	public:
-		engine() {}
+		engine();
 		engine(const engine&) = delete;
 		engine& operator= (const engine&) = delete;
 		engine& operator= (engine&&) = delete;
@@ -178,6 +242,8 @@ namespace Rilek::Core
 
 		void create_systems();
 		void register_systems();
+
+		void register_components();
 
 		void init(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow);
 		void update();
@@ -207,6 +273,7 @@ namespace Rilek::Core
 		// for frametime calculation
 		std::chrono::high_resolution_clock::time_point m_frame_start_time;
 		std::chrono::high_resolution_clock::time_point m_frame_end_time;
+
 		float m_prev_frame_dt;
 		float m_fixed_frame_dt;
 		float m_accumulated_dt;

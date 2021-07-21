@@ -8,17 +8,6 @@ namespace Rilek::ECS
 	//forward declaration
 	class world;
 
-	struct testcomp
-	{
-		int a;
-		int b;
-
-		bool operator==(const testcomp& rhs)
-		{
-			return a == rhs.a && b == rhs.b;
-		}
-	};
-
 	template<typename ComponentType>
 	class component_container : public sparse_set<ComponentType>
 	{
@@ -87,8 +76,8 @@ namespace Rilek::ECS
 			}
 		}
 
-		// Reccomended to be used on a comp[letely new entity
-		ComponentType& clone(world& t_world, entity t_dest_entity, entity t_source_entity)
+		// Reccomended to be used on a completely new entity
+		void clone(world& t_world, entity t_dest_entity, entity t_source_entity)
 		{
 			if (sparse_set<ComponentType>::contains(t_source_entity))
 			{
@@ -96,7 +85,6 @@ namespace Rilek::ECS
 				{
 					ComponentType& component = sparse_set<ComponentType>::insert(t_dest_entity, sparse_set<ComponentType>::at(t_source_entity));
 					m_on_construct_delegates.call_delegates(t_world, t_dest_entity, component);
-					return component;
 				}
 				else
 				{
@@ -104,7 +92,6 @@ namespace Rilek::ECS
 					ComponentType& component = sparse_set<ComponentType>::at(t_dest_entity);
 					component = sparse_set<ComponentType>::at(t_source_entity);
 					m_on_update_delegates.call_delegates(t_world, t_dest_entity, component);
-					return component;
 				}
 			}
 		}
@@ -113,7 +100,7 @@ namespace Rilek::ECS
 		// LOOKUP
 		//////////////////////
 		// find based on component value
-		entity Find(const ComponentType& component)
+		entity find(const ComponentType& component)
 		{
 			for (size_t index = 0; index < sparse_set<ComponentType>::m_dense.size(); ++index)
 			{

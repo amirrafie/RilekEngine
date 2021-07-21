@@ -6,25 +6,43 @@
 #include "Tools/Logger/logger.h"
 
 #include "Windows/window_system.h"
+#include "Tests/test_system.h"
+
+#include "ECS/Components/test_component.h"
 
 namespace Rilek::Core
 {
 	engine* engine::m_instance = nullptr;
 
+	engine::engine() :
+		m_prev_frame_dt(0),
+		m_fixed_frame_dt(0),
+		m_accumulated_dt(0)
+	{
+	}
+
 	void engine::create_systems()
 	{
 		m_windowsSystem = CREATE_SYSTEM(Rilek::Window::window_system);
+		CREATE_SYSTEM(Rilek::test_system);
 
 	}
 
 	void engine::register_systems()
 	{
 		register_update_systems<
-			Rilek::Window::window_system
+			Rilek::Window::window_system,
+			test_system
 		>();
 
 		register_fixed_update_systems<
+			test_system
 		>();
+	}
+
+	void engine::register_components()
+	{
+		REGISTER_COMPONENT(m_current_world, test_component);
 	}
 
 	void engine::init(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
@@ -42,6 +60,10 @@ namespace Rilek::Core
 		// Create and register systems
 		create_systems();
 		register_systems();
+
+		// register components
+		register_components();
+
 
 		//start window
 		if (!m_windowsSystem)
@@ -79,6 +101,8 @@ namespace Rilek::Core
 				m_accumulated_dt -= m_fixed_frame_dt;
 			}
 
+			m_current_world.update();
+
 			// fixed update
 			for (int i = 0; i < m_steps; ++i)
 			{
@@ -111,11 +135,13 @@ namespace Rilek::Core
 	{    
 		if (AllocConsole())
 		{
-			FILE* file;
+			FILE* cout,* cin,* err;
 
-			freopen_s(&file, "CONOUT$", "wt", stdout);
-			freopen_s(&file, "CONOUT$", "wt", stderr);
-			freopen_s(&file, "CONOUT$", "wt", stdin);
+			freopen_s(&cout, "CONOUT$", "w", stdout);
+			if (freopen_s(&cin, "CONIN$", "w+", stdin) != 0)
+			{
+				assert(false);
+			};
 			SetConsoleTitleW(L"console");
 		}
 	}
