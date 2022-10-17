@@ -1,10 +1,18 @@
+/******************************************************************************/
+/*!
+\file event_manager.h
+\author Amir Rafie
+\par email: amirrafiebin.m\@digipen.edu
+\par DigiPen login: amirrafiebin.m
+*/
+/******************************************************************************/
 #pragma once
+#include <functional>
 
 #include "Tools/Delegate/Delegate.h"
+#include "Tools/Containers/sparse_set.h"
 
-/// WIP
-
-namespace Rilek::Events
+namespace Rilek
 {
 	struct test_event
 	{
@@ -14,7 +22,7 @@ namespace Rilek::Events
 	template <typename EventType>
 	class event_manager
 	{
-		friend class EventListener;
+		friend class event_listener;
 	public:
 		static event_manager<EventType>& get_instance()
 		{
@@ -23,17 +31,42 @@ namespace Rilek::Events
 		}
 
 		template <auto Fn, typename T>
-		void add_listener(T* instance)
+		size_t add_listener(T* instance)
 		{
-			auto& delegate_ref = m_event_handlers.emplace_back();
+			size_t id = m_event_handlers.size();
+			if (m_recycle_list.size())
+			{
+				id = m_recycle_list.back();
+				m_recycle_list.pop_back();
+			}
+
+			auto& delegate_ref = m_event_handlers.emplace(id);
 			delegate_ref.attach<Fn>(instance);
+
+			return id;
 		}
 
 		template <auto Fn>
-		void add_listener()
+		size_t add_listener()
 		{
-			auto& delegate_ref = m_event_handlers.emplace_back();
+			size_t id = m_event_handlers.size();
+			if (m_recycle_list.size())
+			{
+				id = m_recycle_list.back();
+				m_recycle_list.pop_back();
+			}
+
+			auto& delegate_ref = m_event_handlers.emplace(id);
 			delegate_ref.attach<Fn>();
+
+			return id;
+		}
+
+
+		void remove_listener(size_t t_id)
+		{
+			m_event_handlers.erase(t_id);
+			m_recycle_list.push_back(t_id);
 		}
 
 		void handle_event(const EventType& ev)
@@ -42,15 +75,18 @@ namespace Rilek::Events
 			{
 				eventHandler(ev);
 			}
+
+			
 		}
 
 	private:
-		event_manager<EventType>(){}
-		std::vector<Rilek::delegate<void(const EventType&)>> m_event_handlers;
+		event_manager<EventType>() {}
+		sparse_set<Rilek::delegate<void(const EventType&)>> m_event_handlers;
+		std::vector<size_t> m_recycle_list;
 	};
 
 
-	class EventDispatcher
+	class event_dispatcher
 	{
 	public:
 		template <typename EventType>
@@ -62,19 +98,57 @@ namespace Rilek::Events
 
 
 	// Cannot unsubscribe from events atm
-	class EventListener
+	class event_listener
 	{
+		typedef std::function<void()> remove_listener_fn;
+
 	public:
+		~event_listener();
+
 		template <typename EventType, auto Fn>
-		void subscribe()
+		size_t subscribe()
 		{
-			event_manager<EventType>::get_instance().add_listener<Fn>();
+			size_t remove_function_id = m_remove_functions.size();
+			if (m_remove_function_recycle_list.size())
+			{
+				remove_function_id = m_remove_function_recycle_list.back();
+				m_remove_function_recycle_list.pop_back();
+			}
+
+			size_t unsub_id = event_manager<EventType>::get_instance().add_listener<Fn>();
+
+			m_remove_functions.insert(remove_function_id, [remove_function_id]() {event_manager<EventType>::get_instance().remove_listener(remove_function_id); });
+
+			return unsub_id;
 		}
 
 		template <typename EventType, auto Fn, typename InstanceType>
-		void subscribe(InstanceType* instance)
+		size_t subscribe(InstanceType* instance)
 		{
-			event_manager<EventType>::get_instance().add_listener<Fn>(instance);
+			size_t remove_function_id = m_remove_functions.size();
+			if (m_remove_function_recycle_list.size())
+			{
+				remove_function_id = m_remove_function_recycle_list.back();
+				m_remove_function_recycle_list.pop_back();
+			}
+
+			size_t unsub_id = event_manager<EventType>::get_instance().add_listener<Fn>(instance);
+
+			m_remove_functions.insert(remove_function_id, [remove_function_id]() {event_manager<EventType>::get_instance().remove_listener(remove_function_id); });
+
+			return unsub_id;
 		}
+
+		template <typename EventType>
+		void unsubscribe(size_t t_id)
+		{
+			m_remove_functions.at(t_id)();
+			m_remove_functions.erase(t_id);
+			m_remove_function_recycle_list.push_back(t_id);
+		}
+
+	private:
+		sparse_set<remove_listener_fn> m_remove_functions;
+		std::vector<size_t> m_remove_function_recycle_list;
 	};
 }

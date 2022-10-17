@@ -5,19 +5,8 @@
 
 #include "ECS/Components/test_component.h"
 
-void Rilek::test_system::init(Rilek::ECS::world& world)
+void Rilek::test_system::ComponentTest(Rilek::ECS::world& world, float dt)
 {
-	for (int i = 0; i < 10; ++i)
-	{
-		world.create_entity();
-	}
-	m_ev_listener.subscribe<Events::test_event, &test_system::test_event_trigger>(this);
-
-}
-
-void Rilek::test_system::update(Rilek::ECS::world& world, float dt)
-{
-	//RLK_TRACE("{0}", test);
 	test = 0;
 
 	int command, val;
@@ -35,7 +24,7 @@ void Rilek::test_system::update(Rilek::ECS::world& world, float dt)
 		std::cin >> val;
 		world.remove_component<test_component>(val);
 	}
-		break;
+	break;
 	case 1:
 	{
 		std::cin >> val;
@@ -43,21 +32,37 @@ void Rilek::test_system::update(Rilek::ECS::world& world, float dt)
 		c.m_value = val;
 		world.add_component<test_component>(val, c);
 	}
-		break;
+	break;
 	case 2:
 	{
 		std::cin >> val;
-		Events::test_event ev;
+		Rilek::test_event ev;
 		ev.value = val;
 		m_ev_dispatcher.dispatch_event(ev);
 	}
-		break;
+	break;
 	default:
 	{
 		RLK_TRACE("Input 0 to remove component. Input 1 to add component. Input 2 to send event ");
 	}
-		break;
+	break;
 	}
+}
+
+void Rilek::test_system::init(Rilek::ECS::world& world)
+{
+	for (int i = 0; i < 10; ++i)
+	{
+		world.create_entity();
+	}
+	m_ev_listener.subscribe<Rilek::test_event, &test_system::test_event_trigger>(this);
+
+}
+
+void Rilek::test_system::update(Rilek::ECS::world& world, float dt)
+{
+	//RLK_TRACE("{0}", test);
+	//ComponentTest(world, dt);
 }
 
 void Rilek::test_system::fixed_update(float dt)
@@ -66,7 +71,7 @@ void Rilek::test_system::fixed_update(float dt)
 	
 }
 
-void Rilek::test_system::test_event_trigger(const Events::test_event& e)
+void Rilek::test_system::test_event_trigger(const Rilek::test_event& e)
 {
 	RLK_TRACE("EVENT : {0}", e.value);
 }
