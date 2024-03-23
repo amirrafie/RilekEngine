@@ -5,7 +5,7 @@
 
 #include "component_container.h"
 
-#define REGISTER_COMPONENT(world, c) world.register_component<c>(#c)
+#define REGISTER_COMPONENT_TO_WORLD(world, c) world.register_component<c>(#c)
 
 namespace Rilek::ECS
 {

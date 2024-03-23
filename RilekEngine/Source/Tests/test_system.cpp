@@ -61,8 +61,8 @@ void Rilek::test_system::init(Rilek::ECS::world& world)
 
 void Rilek::test_system::update(Rilek::ECS::world& world, float dt)
 {
-	//RLK_TRACE("{0}", test);
-	//ComponentTest(world, dt);
+	RLK_TRACE("{0}", test);
+	ComponentTest(world, dt);
 }
 
 void Rilek::test_system::fixed_update(float dt)

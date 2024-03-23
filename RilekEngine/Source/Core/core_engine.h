@@ -1,12 +1,16 @@
 #pragma once
+#include <functional>
 #include <memory>
-#include <vector>
+#include <string>
 #include <type_traits>
+#include <unordered_map>
+#include <vector>
 
 #include "Tools/Delegate/delegate.h"
 #include "ECS/world.h"
 
 #define CREATE_SYSTEM(s) create_system<s>(#s)
+#define REGISTER_COMPONENT(s) Rilek::Core::engine_component_registrator<s> component_registrator_##s(#s);
 
 namespace Rilek::Window
 {
@@ -256,6 +260,8 @@ namespace Rilek::Core
 		// Show console terminal
 		void show_console();
 
+		// Global component registration
+		static std::unordered_map<std::string, std::function<void(ECS::world &, const std::string &)>> s_component_registration_fns;
 	private:
 		static engine* m_instance;
 
@@ -283,5 +289,18 @@ namespace Rilek::Core
 		std::vector<Rilek::delegate<void(ECS::world&, float)>> m_fixedUpdateDelegates;
 		std::vector<Rilek::delegate<void(ECS::world&)>> m_endDelegates;
 
+	};
+
+	template<typename Component>
+	class engine_component_registrator
+	{
+	public:
+		engine_component_registrator(const char *component_name)
+		{
+			engine::s_component_registration_fns[component_name] = [](ECS::world& world, const std::string& component_name)
+				{
+					world.register_component<Component>(component_name.c_str());
+				};
+		}
 	};
 }

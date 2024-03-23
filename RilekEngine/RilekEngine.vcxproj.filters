@@ -68,5 +68,6 @@
     <ClCompile Include="Source\ECS\component_container.cpp" />
     <ClCompile Include="Source\ECS\world.cpp" />
     <ClCompile Include="Source\Tests\test_system.cpp" />
+    <ClCompile Include="Source\ECS\Components\test_component.cpp" />
   </ItemGroup>
 </Project>

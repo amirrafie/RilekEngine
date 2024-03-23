@@ -1,17 +1,16 @@
 #include "stdafx.h"
 #include "core_engine.h"
 
-
 #include "Tools/Delegate/delegate.h"
 #include "Tools/Logger/logger.h"
 
 #include "Windows/window_system.h"
 #include "Tests/test_system.h"
 
-#include "ECS/Components/test_component.h"
-
 namespace Rilek::Core
 {
+	std::unordered_map<std::string, std::function<void(ECS::world&, const std::string&)>> engine::s_component_registration_fns;
+
 	engine* engine::m_instance = nullptr;
 
 	engine::engine() :
@@ -42,7 +41,10 @@ namespace Rilek::Core
 
 	void engine::register_components()
 	{
-		REGISTER_COMPONENT(m_current_world, test_component);
+		for (const auto& component_reg_pair : s_component_registration_fns)
+		{
+			component_reg_pair.second(m_current_world, component_reg_pair.first);
+		}
 	}
 
 	void engine::init(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
