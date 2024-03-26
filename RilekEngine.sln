@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RilekEngine", "RilekEngine\RilekEngine.vcxproj", "{322E767B-9EE3-EE70-27D8-E847938CE574}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glad", "RilekEngine\Deps\glad\glad.vcxproj", "{DD62977C-C999-980D-7286-7E105E9C140F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glfw", "RilekEngine\Deps\glfw\glfw.vcxproj", "{9563977C-819A-980D-2A87-7E10169D140F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -13,6 +17,14 @@ Global
 		{322E767B-9EE3-EE70-27D8-E847938CE574}.Debug|x64.Build.0 = Debug|x64
 		{322E767B-9EE3-EE70-27D8-E847938CE574}.Release|x64.ActiveCfg = Release|x64
 		{322E767B-9EE3-EE70-27D8-E847938CE574}.Release|x64.Build.0 = Release|x64
+		{DD62977C-C999-980D-7286-7E105E9C140F}.Debug|x64.ActiveCfg = Debug|x64
+		{DD62977C-C999-980D-7286-7E105E9C140F}.Debug|x64.Build.0 = Debug|x64
+		{DD62977C-C999-980D-7286-7E105E9C140F}.Release|x64.ActiveCfg = Release|x64
+		{DD62977C-C999-980D-7286-7E105E9C140F}.Release|x64.Build.0 = Release|x64
+		{9563977C-819A-980D-2A87-7E10169D140F}.Debug|x64.ActiveCfg = Debug|x64
+		{9563977C-819A-980D-2A87-7E10169D140F}.Debug|x64.Build.0 = Debug|x64
+		{9563977C-819A-980D-2A87-7E10169D140F}.Release|x64.ActiveCfg = Release|x64
+		{9563977C-819A-980D-2A87-7E10169D140F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

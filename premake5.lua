@@ -8,10 +8,19 @@ workspace "RilekEngine"
 	"Debug", 
 	"Release"
 	}
+	
+	startproject "RilekEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.architecture}"
 
--- incluu
+-- includes directories relative to solution directory
+IncludeDir = {}
+IncludeDir["spdlog"] = "RilekEngine/Deps/spdlog/include"
+IncludeDir["glfw"] = "RilekEngine/Deps/glfw/include"
+IncludeDir["glad"] = "RilekEngine/Deps/glad/include"
+
+include "RilekEngine/Deps/glfw"
+include "RilekEngine/Deps/glad"
 
 project "RilekEngine"
 	location "RilekEngine"
@@ -40,7 +49,15 @@ project "RilekEngine"
 	includedirs 
 	{
 		"%{prj.name}/Source",
-		"%{prj.name}/Deps/spdlog/include"
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.glfw}"
+	}
+	
+	links
+	{
+		"glfw",
+		"opengl32.lib",
+		"glad"
 	}
 
 	defines 

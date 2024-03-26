@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "glfw_system.h"
 
+#include "GLFW/glfw3.h"
+
 namespace Rilek::Glfw
 {
 
