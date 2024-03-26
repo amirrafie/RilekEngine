@@ -4,11 +4,26 @@
     <Filter Include="Core">
       <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{60E1870B-CCEA-877C-5566-9E7CC16E937C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Components">
+      <UniqueIdentifier>{752AA906-61F8-9C0C-4A8C-0D3336F97871}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Events">
       <UniqueIdentifier>{3A8963B1-262B-8E87-0FE6-A1DBFB2615D8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Glfw">
+      <UniqueIdentifier>{75D7857C-610E-870D-0AFB-6C10F610030F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{5865280E-C479-50BF-8DFB-F31EF9CE4CF0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Tools">
       <UniqueIdentifier>{16CF2D0E-82E3-55BF-4B65-F91EB73852F0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\Containers">
+      <UniqueIdentifier>{DB37D211-C730-F163-F062-D6E8DCBAD06F}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tools\Delegate">
       <UniqueIdentifier>{C06069BB-AC2E-5DC1-95C2-CDE7812F3926}</UniqueIdentifier>
@@ -19,55 +34,78 @@
     <Filter Include="Windows">
       <UniqueIdentifier>{5032B729-BC11-36C5-C529-C19B31889C26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tools\Containers">
-      <UniqueIdentifier>{495f5b0c-5006-43c7-b9f8-e37afb85f5cc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\stdafx.h" />
-    <ClInclude Include="Source\Tools\Containers\sparse_set.h">
-      <Filter>Tools\Containers</Filter>
+    <ClInclude Include="Source\Core\core_engine.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ECS\Components\test_component.h">
+      <Filter>ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ECS\World.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ECS\component_container.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ECS\entity.h">
+      <Filter>ECS</Filter>
     </ClInclude>
     <ClInclude Include="Source\Events\event_manager.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ECS\component_container.h" />
-    <ClInclude Include="Source\Tools\Delegate\delegate.h">
+    <ClInclude Include="Source\Glfw\glfw_system.h">
+      <Filter>Glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tests\test_system.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tools\Containers\sparse_set.h">
+      <Filter>Tools\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tools\Delegate\Delegate.h">
       <Filter>Tools\Delegate</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tools\Delegate\delegate_container.h">
+      <Filter>Tools\Delegate</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tools\Logger\Logger.h">
+      <Filter>Tools\Logger</Filter>
     </ClInclude>
     <ClInclude Include="Source\Windows\window_system.h">
       <Filter>Windows</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Tools\Logger\logger.h">
-      <Filter>Tools\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Core\core_engine.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Tools\Delegate\delegate_container.h" />
-    <ClInclude Include="Source\ECS\entity.h" />
-    <ClInclude Include="Source\ECS\world.h" />
-    <ClInclude Include="Source\ECS\Components\test_component.h" />
-    <ClInclude Include="Source\Tests\test_system.h" />
+    <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Core\core_engine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ECS\Components\test_component.cpp">
+      <Filter>ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ECS\component_container.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ECS\world.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
     <ClCompile Include="Source\EntryPoint.cpp" />
-    <ClCompile Include="Source\stdafx.cpp" />
     <ClCompile Include="Source\Events\event_manager.cpp">
       <Filter>Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Glfw\glfw_system.cpp">
+      <Filter>Glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\test_system.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tools\Logger\Logger.cpp">
+      <Filter>Tools\Logger</Filter>
     </ClCompile>
     <ClCompile Include="Source\Windows\window_system.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tools\Logger\logger.cpp">
-      <Filter>Tools\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Core\core_engine.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ECS\component_container.cpp" />
-    <ClCompile Include="Source\ECS\world.cpp" />
-    <ClCompile Include="Source\Tests\test_system.cpp" />
-    <ClCompile Include="Source\ECS\Components\test_component.cpp" />
+    <ClCompile Include="Source\stdafx.cpp" />
   </ItemGroup>
 </Project>

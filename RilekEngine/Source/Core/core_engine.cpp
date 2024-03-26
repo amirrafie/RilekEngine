@@ -4,7 +4,11 @@
 #include "Tools/Delegate/delegate.h"
 #include "Tools/Logger/logger.h"
 
+#if USING_CORE_WINDOWS
 #include "Windows/window_system.h"
+#elif USING_GLFW
+#include "Glfw/glfw_system.h"
+#endif
 #include "Tests/test_system.h"
 
 namespace Rilek::Core
@@ -22,7 +26,12 @@ namespace Rilek::Core
 
 	void engine::create_systems()
 	{
+#if USING_CORE_WINDOWS
 		m_windowsSystem = CREATE_SYSTEM(Rilek::Window::window_system);
+#elif USING_GLFW
+		CREATE_SYSTEM(Glfw::glfw_system);
+		
+#endif
 		CREATE_SYSTEM(Rilek::test_system);
 
 	}
@@ -30,7 +39,11 @@ namespace Rilek::Core
 	void engine::register_systems()
 	{
 		register_update_systems<
+#if USING_CORE_WINDOWS
 			Rilek::Window::window_system,
+#elif USING_GLFW
+			Glfw::glfw_system,
+#endif
 			test_system
 		>();
 
@@ -68,12 +81,14 @@ namespace Rilek::Core
 
 
 		//start window
+#if USING_CORE_WINDOWS
 		if (!m_windowsSystem)
 		{
 			RLK_ERROR("Window system not created!");
 		}
 		else
 			m_windowsSystem->init_windows(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+#endif
 
 		// delta time stuffs
 		m_fixed_frame_dt = 1.f / 60.f;

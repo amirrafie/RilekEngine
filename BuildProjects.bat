@@ -1,2 +1,2 @@
-call Deps\premake\premake5.exe vs2019
+call Deps\premake\premake5.exe vs2022
 pause

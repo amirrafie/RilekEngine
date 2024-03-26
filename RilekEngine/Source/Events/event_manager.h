@@ -9,7 +9,7 @@
 #pragma once
 #include <functional>
 
-#include "Tools/Delegate/Delegate.h"
+#include "Tools/Delegate/delegate.h"
 #include "Tools/Containers/sparse_set.h"
 
 namespace Rilek
@@ -81,6 +81,7 @@ namespace Rilek
 
 	private:
 		event_manager<EventType>() {}
+		// Not using delegate_container, dont want smart ID for each different event handler
 		sparse_set<Rilek::delegate<void(const EventType&)>> m_event_handlers;
 		std::vector<size_t> m_recycle_list;
 	};

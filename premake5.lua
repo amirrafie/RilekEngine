@@ -11,6 +11,8 @@ workspace "RilekEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.architecture}"
 
+-- incluu
+
 project "RilekEngine"
 	location "RilekEngine"
 	kind "WindowedApp"

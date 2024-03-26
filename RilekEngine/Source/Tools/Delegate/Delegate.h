@@ -2,6 +2,7 @@
 
 namespace Rilek
 {
+	// Delegates allow me to use the same function signature to store either member or non-member function
 	template<typename... >
 	class delegate;
 

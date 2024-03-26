@@ -12,6 +12,9 @@
 #define CREATE_SYSTEM(s) create_system<s>(#s)
 #define REGISTER_COMPONENT(s) Rilek::Core::engine_component_registrator<s> component_registrator_##s(#s);
 
+#define USING_CORE_WINDOWS 0
+#define USING_GLFW 1
+
 namespace Rilek::Window
 {
 	class window_system;
@@ -269,7 +272,9 @@ namespace Rilek::Core
 		bool m_is_running = true;
 
 		// Pointers to important systems
+#if USING_CORE_WINDOWS
 		Window::window_system* m_windowsSystem = nullptr;
+#endif
 
 		std::vector<system_type> m_systemContainer;
 		std::vector<system_data> m_systemDataContainer;
