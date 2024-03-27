@@ -50,7 +50,8 @@ project "RilekEngine"
 	{
 		"%{prj.name}/Source",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.glfw}"
+		"%{IncludeDir.glfw}",
+		"%{IncludeDir.glad}"
 	}
 	
 	links
