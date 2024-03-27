@@ -8,9 +8,6 @@
 
 #define MAX_LOADSTRING 100
 
-
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
 bool isRunning = true;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -22,7 +19,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     char** argv = __argv;
     /////////////////////////////////////////////////////////////////
     Rilek::Core::engine engine;
-    engine.init(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    engine.init(Rilek::Core::winmain_entry_params{ hInstance, hPrevInstance, lpCmdLine, nCmdShow });
     engine.update();
     engine.end();
     /////////////////////////////////////////////////////////////////

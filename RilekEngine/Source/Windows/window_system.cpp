@@ -2,11 +2,18 @@
 #include "window_system.h"
 
 #include "Core/core_engine.h"
+#include "window.h"
+
+#include "Glfw/glfw_system.h"
 
 namespace Rilek::Window
 {
+    window_system::window_system()
+        : mp_current_window(nullptr)
+    {
+    }
 
-    void window_system::init_windows(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
+	void window_system::init()
 	{
 	}
 

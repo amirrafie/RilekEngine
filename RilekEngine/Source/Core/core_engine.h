@@ -12,8 +12,7 @@
 #define CREATE_SYSTEM(s) create_system<s>(#s)
 #define REGISTER_COMPONENT(s) Rilek::Core::engine_component_registrator<s> component_registrator_##s(#s);
 
-#define USING_CORE_WINDOWS 0
-#define USING_GLFW 1
+#define SHOW_CONSOLE 1
 
 namespace Rilek::Window
 {
@@ -26,6 +25,14 @@ namespace Rilek::Core
 	{
 		const char* m_name;
 		float m_prev_dt;
+	};
+
+	struct winmain_entry_params
+	{
+		HINSTANCE m_hInstance;
+		HINSTANCE m_hPrevInstance;
+		LPWSTR    m_lpCmdLine;
+		int       m_nCmdShow;
 	};
 
 	//wrapper functions for delegates
@@ -244,7 +251,8 @@ namespace Rilek::Core
 		engine& operator= (const engine&) = delete;
 		engine& operator= (engine&&) = delete;
 
-		inline static engine* get_engine() { return m_instance; }
+		inline static engine* get_engine() { return s_instance; }
+		inline static const winmain_entry_params& get_windows_entry_params() { return s_initial_entry_params; }
 		inline bool engine_is_running() { return m_is_running; };
 
 		void create_systems();
@@ -252,7 +260,7 @@ namespace Rilek::Core
 
 		void register_components();
 
-		void init(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow);
+		void init(winmain_entry_params entry_params);
 		void update();
 		void end();
 
@@ -266,15 +274,12 @@ namespace Rilek::Core
 		// Global component registration
 		static std::unordered_map<std::string, std::function<void(ECS::world &, const std::string &)>> s_component_registration_fns;
 	private:
-		static engine* m_instance;
+		static engine* s_instance;
 
+		// initial wWinMain entry params
+		static winmain_entry_params s_initial_entry_params;
 
 		bool m_is_running = true;
-
-		// Pointers to important systems
-#if USING_CORE_WINDOWS
-		Window::window_system* m_windowsSystem = nullptr;
-#endif
 
 		std::vector<system_type> m_systemContainer;
 		std::vector<system_data> m_systemDataContainer;

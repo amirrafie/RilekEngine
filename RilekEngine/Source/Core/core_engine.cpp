@@ -4,18 +4,15 @@
 #include "Tools/Delegate/delegate.h"
 #include "Tools/Logger/logger.h"
 
-#if USING_CORE_WINDOWS
 #include "Windows/window_system.h"
-#elif USING_GLFW
-#include "Glfw/glfw_system.h"
-#endif
 #include "Tests/test_system.h"
 
 namespace Rilek::Core
 {
 	std::unordered_map<std::string, std::function<void(ECS::world&, const std::string&)>> engine::s_component_registration_fns;
 
-	engine* engine::m_instance = nullptr;
+	engine* engine::s_instance = nullptr;
+	winmain_entry_params engine::s_initial_entry_params;
 
 	engine::engine() :
 		m_prev_frame_dt(0),
@@ -26,12 +23,7 @@ namespace Rilek::Core
 
 	void engine::create_systems()
 	{
-#if USING_CORE_WINDOWS
-		m_windowsSystem = CREATE_SYSTEM(Rilek::Window::window_system);
-#elif USING_GLFW
-		CREATE_SYSTEM(Glfw::glfw_system);
-		
-#endif
+		CREATE_SYSTEM(Rilek::Window::window_system);
 		CREATE_SYSTEM(Rilek::test_system);
 
 	}
@@ -39,11 +31,7 @@ namespace Rilek::Core
 	void engine::register_systems()
 	{
 		register_update_systems<
-#if USING_CORE_WINDOWS
 			Rilek::Window::window_system,
-#elif USING_GLFW
-			Glfw::glfw_system,
-#endif
 			test_system
 		>();
 
@@ -60,12 +48,15 @@ namespace Rilek::Core
 		}
 	}
 
-	void engine::init(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
+	void engine::init(winmain_entry_params entry_params)
 	{
-		m_instance = this;
+		s_instance = this;
+		s_initial_entry_params = entry_params;
 
+#if SHOW_CONSOLE
 		// show console terminal
 		show_console();
+#endif
 
 		// initialise logger
 		Rilek::Tools::logger::init();
@@ -78,17 +69,6 @@ namespace Rilek::Core
 
 		// register components
 		register_components();
-
-
-		//start window
-#if USING_CORE_WINDOWS
-		if (!m_windowsSystem)
-		{
-			RLK_ERROR("Window system not created!");
-		}
-		else
-			m_windowsSystem->init_windows(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-#endif
 
 		// delta time stuffs
 		m_fixed_frame_dt = 1.f / 60.f;
