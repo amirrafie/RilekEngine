@@ -60,7 +60,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;Deps\spdlog\include;Deps\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;Deps\spdlog\include;Deps\glfw\include;Deps\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -79,7 +79,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;Deps\spdlog\include;Deps\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;Deps\spdlog\include;Deps\glfw\include;Deps\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -99,11 +99,13 @@
     <ClInclude Include="Source\ECS\entity.h" />
     <ClInclude Include="Source\Events\event_manager.h" />
     <ClInclude Include="Source\Glfw\glfw_system.h" />
+    <ClInclude Include="Source\Glfw\window_glfw.h" />
     <ClInclude Include="Source\Tests\test_system.h" />
     <ClInclude Include="Source\Tools\Containers\sparse_set.h" />
     <ClInclude Include="Source\Tools\Delegate\Delegate.h" />
     <ClInclude Include="Source\Tools\Delegate\delegate_container.h" />
     <ClInclude Include="Source\Tools\Logger\Logger.h" />
+    <ClInclude Include="Source\Windows\window.h" />
     <ClInclude Include="Source\Windows\window_system.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
@@ -115,8 +117,10 @@
     <ClCompile Include="Source\EntryPoint.cpp" />
     <ClCompile Include="Source\Events\event_manager.cpp" />
     <ClCompile Include="Source\Glfw\glfw_system.cpp" />
+    <ClCompile Include="Source\Glfw\window_glfw.cpp" />
     <ClCompile Include="Source\Tests\test_system.cpp" />
     <ClCompile Include="Source\Tools\Logger\Logger.cpp" />
+    <ClCompile Include="Source\Windows\window.cpp" />
     <ClCompile Include="Source\Windows\window_system.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

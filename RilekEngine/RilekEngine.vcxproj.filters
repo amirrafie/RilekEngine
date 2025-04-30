@@ -57,6 +57,9 @@
     <ClInclude Include="Source\Glfw\glfw_system.h">
       <Filter>Glfw</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Glfw\window_glfw.h">
+      <Filter>Glfw</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Tests\test_system.h">
       <Filter>Tests</Filter>
     </ClInclude>
@@ -71,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="Source\Tools\Logger\Logger.h">
       <Filter>Tools\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Windows\window.h">
+      <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Source\Windows\window_system.h">
       <Filter>Windows</Filter>
@@ -97,11 +103,17 @@
     <ClCompile Include="Source\Glfw\glfw_system.cpp">
       <Filter>Glfw</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Glfw\window_glfw.cpp">
+      <Filter>Glfw</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Tests\test_system.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="Source\Tools\Logger\Logger.cpp">
       <Filter>Tools\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\window.cpp">
+      <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="Source\Windows\window_system.cpp">
       <Filter>Windows</Filter>

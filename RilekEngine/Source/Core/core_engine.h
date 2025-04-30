@@ -12,7 +12,7 @@
 #define CREATE_SYSTEM(s) create_system<s>(#s)
 #define REGISTER_COMPONENT(s) Rilek::Core::engine_component_registrator<s> component_registrator_##s(#s);
 
-#define SHOW_CONSOLE 1
+#define SHOW_CONSOLE 0
 
 namespace Rilek::Window
 {

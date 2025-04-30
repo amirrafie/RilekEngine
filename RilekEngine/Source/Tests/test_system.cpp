@@ -5,6 +5,8 @@
 
 #include "ECS/Components/test_component.h"
 
+#define RUN_COMPONENT_TEST 1
+
 void Rilek::test_system::ComponentTest(Rilek::ECS::world& world, float dt)
 {
 	test = 0;
@@ -61,14 +63,15 @@ void Rilek::test_system::init(Rilek::ECS::world& world)
 
 void Rilek::test_system::update(Rilek::ECS::world& world, float dt)
 {
+#if RUN_COMPONENT_TEST
 	RLK_TRACE("dt: {0}", test);
 	ComponentTest(world, dt);
+#endif
 }
 
 void Rilek::test_system::fixed_update(float dt)
 {
 	++test;
-	
 }
 
 void Rilek::test_system::test_event_trigger(const Rilek::test_event& e)
