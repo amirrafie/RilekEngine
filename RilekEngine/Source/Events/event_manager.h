@@ -11,6 +11,7 @@
 
 #include "Tools/Delegate/delegate.h"
 #include "Tools/Containers/sparse_set.h"
+#include "Tools/Containers/vector.h"
 
 namespace Rilek
 {
@@ -83,7 +84,7 @@ namespace Rilek
 		event_manager<EventType>() {}
 		// Not using delegate_container, dont want smart ID for each different event handler
 		sparse_set<Rilek::delegate<void(const EventType&)>> m_event_handlers;
-		std::vector<size_t> m_recycle_list;
+		vector<size_t> m_recycle_list;
 	};
 
 
@@ -150,6 +151,6 @@ namespace Rilek
 
 	private:
 		sparse_set<remove_listener_fn> m_remove_functions;
-		std::vector<size_t> m_remove_function_recycle_list;
+		vector<size_t> m_remove_function_recycle_list;
 	};
 }

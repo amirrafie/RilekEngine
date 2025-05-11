@@ -82,6 +82,7 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Source\stdafx.h" />
+    <ClInclude Include="Source\Tools\Containers\vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\core_engine.cpp">
@@ -119,5 +120,6 @@
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="Source\stdafx.cpp" />
+    <ClCompile Include="Source\Tools\Memory\alloc.cpp" />
   </ItemGroup>
 </Project>

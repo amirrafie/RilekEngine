@@ -4,15 +4,14 @@
 #include <string>
 #include <type_traits>
 #include <unordered_map>
-#include <vector>
-
+#include "Tools/Containers/vector.h"
 #include "Tools/Delegate/delegate.h"
 #include "ECS/world.h"
 
 #define CREATE_SYSTEM(s) create_system<s>(#s)
 #define REGISTER_COMPONENT(s) Rilek::Core::engine_component_registrator<s> component_registrator_##s(#s);
 
-#define SHOW_CONSOLE 0
+#define SHOW_CONSOLE 1
 
 namespace Rilek::Window
 {
@@ -281,8 +280,8 @@ namespace Rilek::Core
 
 		bool m_is_running = true;
 
-		std::vector<system_type> m_systemContainer;
-		std::vector<system_data> m_systemDataContainer;
+		vector<system_type> m_systemContainer;
+		vector<system_data> m_systemDataContainer;
 
 		ECS::world m_current_world;
 
@@ -294,10 +293,10 @@ namespace Rilek::Core
 		float m_fixed_frame_dt;
 		float m_accumulated_dt;
 
-		std::vector<Rilek::delegate<void(ECS::world&)>> m_initDelegates;
-		std::vector<Rilek::delegate<void(ECS::world&, float)>> m_updateDelegates;
-		std::vector<Rilek::delegate<void(ECS::world&, float)>> m_fixedUpdateDelegates;
-		std::vector<Rilek::delegate<void(ECS::world&)>> m_endDelegates;
+		vector<Rilek::delegate<void(ECS::world&)>> m_initDelegates;
+		vector<Rilek::delegate<void(ECS::world&, float)>> m_updateDelegates;
+		vector<Rilek::delegate<void(ECS::world&, float)>> m_fixedUpdateDelegates;
+		vector<Rilek::delegate<void(ECS::world&)>> m_endDelegates;
 
 	};
 

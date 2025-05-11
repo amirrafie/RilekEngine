@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
-#include <vector>
 #include <unordered_set>
 
+#include "Tools/Containers/vector.h"
 #include "component_container.h"
 
 #define REGISTER_COMPONENT_TO_WORLD(world, c) world.register_component<c>(#c)
@@ -147,11 +147,11 @@ namespace Rilek::ECS
 		std::unordered_set<entity> m_entities;
 		// list of entities to delete
 		std::unordered_set<entity> m_free_list;
-		std::vector<std::unordered_set<entity>> m_component_free_lists;
+		vector<std::unordered_set<entity>> m_component_free_lists;
 		// list of recycable entites when creating new entities
-		std::vector<entity> m_recycable_entities;
+		vector<entity> m_recycable_entities;
 		// component containers
-		std::vector<component_container_wrapper> m_component_containers;
+		vector<component_container_wrapper> m_component_containers;
 		// flags
 		bool m_to_clear = false;
 	};

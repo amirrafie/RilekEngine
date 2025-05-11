@@ -10,6 +10,7 @@ namespace Rilek
 
 
 		void ComponentTest(Rilek::ECS::world& world, float dt);
+		void VectorTest(Rilek::ECS::world& world);
 	public:
 		void init(Rilek::ECS::world&);
 		void update(Rilek::ECS::world&, float);

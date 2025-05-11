@@ -1,6 +1,7 @@
 #pragma once
 
-#include <vector>	// vector
+//#include <vector>	// vector
+#include "Tools/Containers/vector.h"
 namespace Rilek
 {
 	template<typename T>
@@ -235,9 +236,9 @@ namespace Rilek
 	protected:
 		static const size_t empty_index = std::numeric_limits<size_t>::max();
 
-		std::vector<size_t> m_sparse;
-		std::vector<T> m_dense;
-		std::vector<size_t> m_sparse_indices;	// 1 to 1 relation to m_dense. to use to keep track of the index used for a specific element. (useful for deletion)
+		vector<size_t> m_sparse;
+		vector<T> m_dense;
+		vector<size_t> m_sparse_indices;	// 1 to 1 relation to m_dense. to use to keep track of the index used for a specific element. (useful for deletion)
 
 		size_t m_size = 0;
 		size_t m_capcity = 0;
