@@ -20,7 +20,7 @@ namespace Rilek::Glfw
         if (!glfwInit())
             return false;
  
-        mp_window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+        mp_window = glfwCreateWindow(m_width, m_height, "LearnOpenGL", NULL, NULL);
         if (mp_window == NULL)
         {
             std::cout << "Failed to create GLFW window" << std::endl;

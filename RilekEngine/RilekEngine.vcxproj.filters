@@ -31,6 +31,9 @@
     <Filter Include="Tools\Logger">
       <UniqueIdentifier>{2550A31D-11B3-32C2-BA38-6B78A67AFE44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools\Memory">
+      <UniqueIdentifier>{BEF1461F-AA54-D6C3-53DA-0E7A3F1CA246}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Windows">
       <UniqueIdentifier>{5032B729-BC11-36C5-C529-C19B31889C26}</UniqueIdentifier>
     </Filter>
@@ -66,6 +69,9 @@
     <ClInclude Include="Source\Tools\Containers\sparse_set.h">
       <Filter>Tools\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tools\Containers\vector.h">
+      <Filter>Tools\Containers</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Tools\Delegate\Delegate.h">
       <Filter>Tools\Delegate</Filter>
     </ClInclude>
@@ -82,7 +88,6 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="Source\stdafx.h" />
-    <ClInclude Include="Source\Tools\Containers\vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\core_engine.cpp">
@@ -113,6 +118,9 @@
     <ClCompile Include="Source\Tools\Logger\Logger.cpp">
       <Filter>Tools\Logger</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Tools\Memory\alloc.cpp">
+      <Filter>Tools\Memory</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Windows\window.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
@@ -120,6 +128,5 @@
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="Source\stdafx.cpp" />
-    <ClCompile Include="Source\Tools\Memory\alloc.cpp" />
   </ItemGroup>
 </Project>
