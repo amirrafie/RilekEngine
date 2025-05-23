@@ -101,6 +101,7 @@
     <ClInclude Include="Source\Glfw\glfw_system.h" />
     <ClInclude Include="Source\Glfw\window_glfw.h" />
     <ClInclude Include="Source\Tests\test_system.h" />
+    <ClInclude Include="Source\Tools\Containers\ranges.h" />
     <ClInclude Include="Source\Tools\Containers\sparse_set.h" />
     <ClInclude Include="Source\Tools\Containers\vector.h" />
     <ClInclude Include="Source\Tools\Delegate\Delegate.h" />

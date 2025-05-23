@@ -9,7 +9,7 @@
 #define NO_TEST 0
 #define RUN_COMPONENT_TEST 1
 #define RUN_VECTOR_TEST 2
-#define RUN_TEST RUN_COMPONENT_TEST
+#define RUN_TEST NO_TEST
 
 void Rilek::test_system::ComponentTest(Rilek::ECS::world& world, float dt)
 {

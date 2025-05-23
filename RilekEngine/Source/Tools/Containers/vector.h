@@ -12,6 +12,9 @@ namespace Rilek
 		static const size_t s_type_size = sizeof(T);
 
 	public:
+		using iterator = T*;
+		using const_iterator = const T*;
+
 		vector()
 			: m_data(nullptr)
 			, m_size(0)
@@ -165,22 +168,22 @@ namespace Rilek
 		}
 
 		// iteration
-		T* begin()
+		iterator begin()
 		{
 			return m_data;
 		}
 
-		T* end()
+		iterator end()
 		{
 			return m_data + m_size;
 		}
 
-		const T* cbegin() const
+		const_iterator cbegin() const
 		{
 			return m_data;
 		}
 
-		const T* cend() const
+		const_iterator cend() const
 		{
 			return m_data + m_size;
 		}
