@@ -3,6 +3,7 @@
 
 #include "Tools/Delegate/delegate.h"
 #include "Tools/Logger/logger.h"
+#include "Tools/Containers/ranges.h"
 
 #include "Windows/window_system.h"
 #include "Tests/test_system.h"
@@ -117,7 +118,7 @@ namespace Rilek::Core
 	{
 		RLK_INFO("Shutting down Rilek Engine");
 
-		for (auto& delegate : m_endDelegates)
+		for (auto& delegate : reverse(m_endDelegates))
 			delegate(m_current_world);
 	}
 
