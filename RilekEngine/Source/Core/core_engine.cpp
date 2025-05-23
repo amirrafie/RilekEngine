@@ -5,6 +5,7 @@
 #include "Tools/Logger/logger.h"
 #include "Tools/Containers/ranges.h"
 
+#include "Glfw/glfw_system.h"
 #include "Windows/window_system.h"
 #include "Tests/test_system.h"
 
@@ -24,7 +25,8 @@ namespace Rilek::Core
 
 	void engine::create_systems()
 	{
-		CREATE_SYSTEM(Rilek::Window::window_system);
+		CREATE_SYSTEM(Rilek::Glfw::glfw_system);
+		CREATE_SYSTEM(Rilek::Window::window_system); // dependant on Rilek::Glfw::glfw_system
 		CREATE_SYSTEM(Rilek::test_system);
 
 	}
@@ -32,6 +34,7 @@ namespace Rilek::Core
 	void engine::register_systems()
 	{
 		register_update_systems<
+			Rilek::Glfw::glfw_system,
 			Rilek::Window::window_system,
 			test_system
 		>();

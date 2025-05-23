@@ -17,6 +17,7 @@ namespace Rilek::Glfw
 
     bool window_glfw::init(Rilek::Window::window_system& t_window_system)
     {
+        // Just a safety thing to make sure glfw has been init
         if (!glfwInit())
             return false;
  
@@ -45,7 +46,6 @@ namespace Rilek::Glfw
     bool window_glfw::end(Rilek::Window::window_system& t_window_system)
     {
         glfwDestroyWindow(mp_window);
-        glfwTerminate();
         return true;
     }
 
