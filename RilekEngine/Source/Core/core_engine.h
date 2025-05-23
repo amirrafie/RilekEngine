@@ -35,10 +35,14 @@ namespace Rilek::Core
 	};
 
 	//wrapper functions for delegates
-	template<typename System>
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::init), System&, Rilek::ECS::world&>, bool> = true>
+	void system_init_wrapper(System* t_system_ptr, Rilek::ECS::world& t_world) { (*t_system_ptr).System::init(t_world); }
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::init), System&>, bool> = true>
 	void system_init_wrapper(System* t_system_ptr, Rilek::ECS::world&) { (*t_system_ptr).System::init(); }
 
-	template<typename System>
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::end), System&, Rilek::ECS::world&>, bool> = true>
+	void system_end_wrapper(System* t_system_ptr, Rilek::ECS::world& t_world) { (*t_system_ptr).System::end(t_world); }
+	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::end), System&>, bool> = true>
 	void system_end_wrapper(System* t_system_ptr, Rilek::ECS::world&) { (*t_system_ptr).System::end(); }
 
 	template<typename System, std::enable_if_t<std::is_invocable_v<decltype(&System::update), System&>, bool> = true>
@@ -101,14 +105,10 @@ namespace Rilek::Core
 			System* system_ptr = static_cast<System*>(system_ref.get());
 
 			// store init delegate
-			// void init(Rilek::ECS::world&)
-			if constexpr (std::is_invocable_v<decltype(&System::init), System&, Rilek::ECS::world&>)
-			{
-				auto& init_delegate_ref = m_initDelegates.emplace_back();
-				init_delegate_ref.attach<&System::init>(system_ptr);
-			}
-			// void init()
-			else if constexpr (std::is_invocable_v<decltype(&System::init), System&>)
+			if constexpr (
+				std::is_invocable_v<decltype(&System::init), System&, Rilek::ECS::world&> || // void init(Rilek::ECS::world&)
+				std::is_invocable_v<decltype(&System::init), System&> // void init()
+				)
 			{
 				auto& init_delegate_ref = m_initDelegates.emplace_back();
 				init_delegate_ref.attach<&system_init_wrapper<System>>(system_ptr);
@@ -122,14 +122,10 @@ namespace Rilek::Core
 			}
 
 			// store end delegate
-			// void end(Rilek::ECS::world&)
-			if constexpr (std::is_invocable_v<decltype(&System::end), System&, Rilek::ECS::world&>)
-			{
-				auto& end_delegate_ref = m_endDelegates.emplace_back();
-				end_delegate_ref.attach<&System::end>(system_ptr);
-			}
-			// void end()
-			else if constexpr (std::is_invocable_v<decltype(&System::end), System&>)
+			if constexpr (
+				std::is_invocable_v<decltype(&System::end), System&, Rilek::ECS::world&> || // void end(Rilek::ECS::world&)
+				std::is_invocable_v<decltype(&System::end), System&> // void end()
+				)
 			{
 				auto& end_delegate_ref = m_endDelegates.emplace_back();
 				end_delegate_ref.attach<&system_end_wrapper<System>>(system_ptr);
@@ -257,6 +253,7 @@ namespace Rilek::Core
 		void create_systems();
 		void register_systems();
 
+		// Registers components added to the s_component_registration_fns via macro
 		void register_components();
 
 		void init(winmain_entry_params entry_params);
